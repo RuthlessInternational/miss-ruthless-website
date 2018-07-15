@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 import Prismic from 'prismic-javascript';
 import PrismicReact from 'prismic-reactjs';
@@ -32,7 +31,6 @@ function Upcoming(props) {
     for (let key in props.competitions) {
         if (key < 1){
           data.push(props.competitions[key]);
-          console.log(props.competitions[key].data.date_time)
         }
     }
 
@@ -71,7 +69,7 @@ function Upcoming(props) {
                 <span className="left">{PrismicReact.RichText.render(data[0].data.location)}</span>
                 <p className="date">{moment(data[0].data.date_time).format('lll')}</p>
             </div>
-            <a href={data[0].data.application_link}className="apply"><span className="mincho">提交</span> Apply now</a>
+            <a href={data[0].data.application_link.url}className="apply"><span className="mincho">提交</span> Apply now</a>
             <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </section>
     )   
@@ -95,7 +93,7 @@ function Contact(props) {
                 <a href="http://instagram.com/ruthless.international">Instagram</a>
                 <a href="https://www.facebook.com/ruthlessfans/?hc_ref=SEARCH&fref=nf">Facebook</a>
 
-                <a href="mailto:example@email.com">Email</a>
+                <a href="mailto:miss@ruthless.international">Email</a>
                 <a href="https://vimeo.com/missruthless">Vimeo</a>
             </div>
         </footer>
@@ -143,7 +141,7 @@ function Competitions(props) {
                 {PrismicReact.RichText.render(comp.data.title_chinese)}
             </span>
             <span className="denver">{PrismicReact.RichText.render(comp.data.title_english)}</span>
-            <p className="date">{moment(Date(comp.data.date_time).toString()).format("ll")}</p>
+            <p className="date">{moment(comp.data.date_time).format('ll')}</p>
         </Link>
       </li>
     );
@@ -199,7 +197,6 @@ function Publications(props) {
     var data = [];
     for (var key in props) {
         data.push(props[key]);
-        console.log(props[key].data.link_to_download.url)
     }
 
     const Publication = data.map((data, index) =>

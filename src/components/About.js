@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import Prismic from 'prismic-javascript';
 import PrismicReact from 'prismic-reactjs';
 

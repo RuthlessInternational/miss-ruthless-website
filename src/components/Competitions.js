@@ -180,7 +180,7 @@ export default class Competitions extends React.Component {
     var data = [];
     for (var key in competitions) {
         data.push(competitions[key]);
-        console.log(competitions[key].data.date_time)
+        console.log(competitions[key].data.video)
     }
 
     const Competition = data.map((comp, index) =>
@@ -197,7 +197,7 @@ export default class Competitions extends React.Component {
         <div className={comp.uid === this.state.uid && this.state.open ? "info" : "info closed"} >
             {PrismicReact.RichText.render(comp.data.description_english)}
             <span className="mincho">{PrismicReact.RichText.render(comp.data.description_chinese)}</span>
-
+            {typeof comp.data.video.html === "undefined" ? <div></div> : <div className="video-container" dangerouslySetInnerHTML={{__html: comp.data.video.html}}></div>}
         </div>
       </li>
     );

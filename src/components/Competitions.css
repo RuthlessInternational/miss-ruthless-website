@@ -343,3 +343,11 @@ to {
     padding: 2rem;
     font-size: 32px;
 }
+
+.video-container{
+    padding-right: 10px;
+}
+
+.video-container iframe{
+    width: 100%;
+}
