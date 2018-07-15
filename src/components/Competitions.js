@@ -120,9 +120,8 @@ export default class Competitions extends React.Component {
         return (
             <div className={this.state.open ? "contestants" : "contestants closed"}>
                 <h3 className={this.state.open || this.state.hover ? "label top" : "label top closed"}><span className="mincho">以前的比赛</span> Contestants</h3>
-
                 {Contestants}
-                <li><Link className="all" to={"/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>提交 See all ></Link></li>
+                <li><Link to={"/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>提交 See all ></Link></li>
             </div>
         )
     } else {
@@ -153,25 +152,25 @@ export default class Competitions extends React.Component {
                     {this.renderContestant(this.state.contestants)}
                     {/* <Link className="all" to={"/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>提交 See all ></Link> */}
                     <div className={this.state.openCarousel ? "carouselContainer open" : "carouselContainer"}>
-                        <div className={this.state.openCarousel ? "close open" : "close"} onClick={(e) => this.closeSlides()}><img src={process.env.PUBLIC_URL + "/images/close.png"} /></div>
-                        <div className={this.state.openCarousel ? "arrowLeft open" : "arrowLeft"} ><img src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => slider.prev()}/></div>
+                        <div className={this.state.openCarousel ? "close open" : "close"} onClick={(e) => this.closeSlides()}><img alt="close" src={process.env.PUBLIC_URL + "/images/close.png"} /></div>
+                        <div className={this.state.openCarousel ? "arrowLeft open" : "arrowLeft"} ><img alt="next" src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => slider.prev()}/></div>
                         <div className={this.state.open ? "carousel" : "carousel open"} onClick={(e) => this.openSlides()}>
                             <ReactSiema className="carousel" {...options} ref={siema => slider = siema}>
                                 {Slides}
                             </ReactSiema>
                         </div>
-                        <div className={this.state.openCarousel ? "arrowRight open" : "arrowRight"}><img src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => slider.next()}/></div>
+                        <div className={this.state.openCarousel ? "arrowRight open" : "arrowRight"}><img alt="prev" src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => slider.next()}/></div>
                     </div>
                 </section>
             )
         }
     } else {
-        for (var key in competitions) {
+        for (key in competitions) {
             data.push(competitions[key]);
         }
         return (
             <section className="details">
-                <img className="featured" src={data[0].data.featured_image.url} />
+                <img className="featured" alt="featured" src={data[0].data.featured_image.url} />
             </section>
         )
     }
@@ -227,7 +226,7 @@ export default class Competitions extends React.Component {
                         <div className="line"></div>
                     </div>
                     <div className="view">
-                        <h3 className={this.state.open || this.state.hover ? "label" : "label closed"}></h3>
+                        {/* <h3 className={this.state.open || this.state.hover ? "label" : "label closed"}></h3> */}
                         {this.renderCommpetition(this.state.competitions, this.state.open, this.state.uid)}
                     </div>
                     
@@ -238,7 +237,7 @@ export default class Competitions extends React.Component {
         return (
             <div className="frame loading">
             {/* <h1>Loading</h1> */}
-            <img className="flower animated" src={process.env.PUBLIC_URL + "/images/flower.png"} />
+            <img className="flower animated" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </div>
         )
     }

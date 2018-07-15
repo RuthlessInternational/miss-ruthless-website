@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom'
 import Prismic from 'prismic-javascript';
 import PrismicReact from 'prismic-reactjs';
@@ -11,32 +12,37 @@ const apiEndpoint = 'https://miss-r.cdn.prismic.io/api/v2';
 
 function Splash(props) {
     return (
-        <header className="splash">
-            <img className="splash" src={process.env.PUBLIC_URL + "/images/splash.png"} />
+        <header className={props.fade ? "splash fade": "splash"}>
+            <img className={props.fade ? "splash-image fade": "splash-image"} alt="splash" src={process.env.PUBLIC_URL + "/images/vector2.svg"} />
         </header>
+    )
+}
+
+function BG(props) {
+    return (
+        <div className="bg">
+            <img className="bg-image" alt="splash" src={process.env.PUBLIC_URL + "/images/flower-bg.png"} />
+        </div>
     )
 }
 
 function Upcoming(props) {
     var data = [];
     var data2 = [];
-    for (var key in props.competitions) {
+    for (let key in props.competitions) {
         if (key < 1){
           data.push(props.competitions[key]);
         }
     }
 
-    for (var key in props.contestants) {
+    for (let key in props.contestants) {
         let competitions = props.contestants[key].data.competitions_list
         for (var count in competitions) {
-            console.log(data[0].uid)
             if(competitions[count].competitions.slug === data[0].uid){
                 data2.push(props.contestants[key])
             }
         }
     }
-
-    console.log(data[0].data)
 
     const Contestants = data2.map((cont, index) =>
         <li className="contestant" key={index}>
@@ -48,13 +54,13 @@ function Upcoming(props) {
     return (    
         <section className="upcoming">
             <div className="upcoming-title">
-                <img className="wreath" src={process.env.PUBLIC_URL + "/images/wreath-left.png"} />
+                <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-left.png"} />
                 <div>
                     <span className="mincho">{PrismicReact.RichText.render(data[0].data.title_chinese)}</span>
                     {PrismicReact.RichText.render(data[0].data.title_english)}
                     <p className="date">{moment(Date(data[0].data.date_time).toString()).format("lll")}</p>
                 </div>
-                <img className="wreath" src={process.env.PUBLIC_URL + "/images/wreath-right.png"} />
+                <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-right.png"} />
             </div>
 
             <div className="rule"></div>
@@ -64,7 +70,7 @@ function Upcoming(props) {
                 <p className="date">{moment(Date(data[0].data.date_time).toString()).format("lll")}</p>
             </div>
             <a className="apply"><span className="mincho">提交</span> Apply now</a>
-            <img className="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
+            <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </section>
     )   
 }
@@ -79,10 +85,10 @@ function Contact(props) {
                 </label>
                 <input type="submit" value="提交 Submit" />
             </form>
-            <img className="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
+            <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
             <div className="social-links">
-                <a href="http://facebook.com">Instagram</a>
-                <a href="http://facebook.com">Facebook</a>
+                <a href="http://instagram.com/ruthless.international">Instagram</a>
+                <a href="https://www.facebook.com/ruthlessfans/?hc_ref=SEARCH&fref=nf">Facebook</a>
 
                 <a href="http://facebook.com">Email</a>
                 <a href="http://facebook.com">Vimeo</a>
@@ -99,8 +105,7 @@ function About(props) {
                 <div className="section-title"><span className="mincho">描写</span> About</div>
                 <div className="section-link">
                     <Link to="/about"><span className="mincho">提交</span> Read more</Link>
-                    <div className="arrow-right"><img className="arrow-right" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
-
+                    <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
 
@@ -144,12 +149,12 @@ function Competitions(props) {
                 <div className="section-title"><span className="mincho">以前的比赛</span> Previous competitions</div>
                 <div className="section-link">
                     <Link to="/competitions" params={{ open: false }}><span className="mincho">提交</span> See All</Link>
-                    <div className="arrow-right"><img className="arrow-right" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
+                    <div className="arrow-right"><img alt="more" className="arrow-right" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
             <section className="section">
                 <div className="competition-list">{Competition}</div>
-                <img className="featured" src={data[0].data.featured_image.url} />
+                <img className="featured" alt="features" src={data[0].data.featured_image.url} />
             </section>
         </section>
     )
@@ -177,7 +182,7 @@ function Contestants(props) {
                 <div className="section-title"><span className="mincho">以前的比赛</span> Contestants</div>
                 <div className="section-link">
                     <a href="/contestants"><span className="mincho">提交</span> See All</a>
-                    <div className="arrow-right"><img className="arrow-right" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
+                    <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
             <div className="contestants-list">{Contestant}</div>
@@ -193,7 +198,7 @@ function Publications(props) {
 
     const Publication = data.map((data, index) =>
       <li className="publication" key={index}>
-        <img src={data.data.image.url} />
+        <img alt="publication" src={data.data.image.url} />
         <span className="mincho">{PrismicReact.RichText.render(data.data.title_chinese)} </span>
         {PrismicReact.RichText.render(data.data.title_english)}
       </li>
@@ -214,6 +219,10 @@ function Publications(props) {
 }
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.fireOnScroll = this.fireOnScroll.bind(this);
+  }
 
   state = {
     doc: null,
@@ -226,6 +235,18 @@ export default class App extends React.Component {
 
   componentWillMount() {
     this.fetchPage(this.props);
+  }
+
+  fireOnScroll() {
+    window.scrollY > window.innerHeight ? this.setState({fade: true}) : this.setState({fade: false})
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.fireOnScroll, true);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.fireOnScroll, true);
   }
 
   componentWillReceiveProps(props) {
@@ -253,21 +274,22 @@ export default class App extends React.Component {
   render() {
     if (this.state.competitions) {
       return (
-        <div className="frame main">
-            <Splash />
+        <div className="frame main" ref="elementToFire">
+            <Splash fade={this.state.fade}/>
             <Upcoming competitions={this.state.competitions} contestants={this.state.contestants}/>
             <About {...this.state.about}/>
             <Competitions {...this.state.competitions}/>
             <Contestants {...this.state.contestants}/>
             <Publications {...this.state.publications}/>
             <Contact />
+            <BG />
         </div>
       );
     }
     return (
         <div className="frame loading">
             {/* <h1>Loading</h1> */}
-            <img className="flower animated" src={process.env.PUBLIC_URL + "/images/flower.png"} />
+            <img className="flower animated" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </div>
     )
   }

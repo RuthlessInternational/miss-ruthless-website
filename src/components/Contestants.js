@@ -90,11 +90,9 @@ export default class Contestants extends React.Component {
   renderContestants(contestants){
     var data = [];
     for (var key in contestants) {
-        {contestants[key].data.name_english.length > 0 ? data.push(contestants[key]) : console.log('')}
+        contestants[key].data.name_english.length > 0 ? data.push(contestants[key]) : console.log('')
     }
 
-    let lastLetter = "A";
-    let letter = 0
     let letterArray = []
 
     for (let i = 0; i < 26; i++) {
@@ -154,9 +152,7 @@ export default class Contestants extends React.Component {
         api.query(
             Prismic.Predicates.at('my.contestant.uid', this.state.uid)
         ).then(function(response) {
-            var document = response.results[0];
             that.setState({contestant: response.results[0]})
-            console.log(response.results[0].uid )
         });
     });
   }
@@ -167,7 +163,7 @@ export default class Contestants extends React.Component {
             <div className="single">
                 <div className="list">
                     <div className="image-wrapper">
-                        <img src={this.state.contestant.data.photo.url} />
+                        <img alt="profile" src={this.state.contestant.data.photo.url} />
                     </div>
                     <div className="bio">
                         {PrismicReact.RichText.render(this.state.contestant.data.biography_english)}
@@ -203,7 +199,7 @@ export default class Contestants extends React.Component {
     } else {
       return (
         <div className="frame loading">
-            <img className="flower animated" src={process.env.PUBLIC_URL + "/images/flower.png"} />
+            <img className="flower animated" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </div>
     )
     }

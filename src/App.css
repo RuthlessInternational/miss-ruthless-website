@@ -7,8 +7,46 @@ body{
   top: 0px;
   left: 0px;
   width: 100vw;
-  z-index: -99    ;
+  visibility: visible;
+  cursor: pointer;
 }
+
+.splash-image{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 99vw;
+  z-index: 1;
+  transform: translate(-50%,-50%);
+  transition: 0.3s ease all;
+  opacity: 1;
+}
+
+.splash-image:hover{
+  width: 100vw;
+}
+
+.fade{
+  opacity: 0;
+  z-index: -99  ;
+}
+
+.bg{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  z-index: -1;
+}
+
+.bg-image{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  z-index: 1;
+}
+
 
 .frame.main{
   background: rgb(187,0,0);
