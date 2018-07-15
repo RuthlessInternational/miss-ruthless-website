@@ -32,6 +32,7 @@ function Upcoming(props) {
     for (let key in props.competitions) {
         if (key < 1){
           data.push(props.competitions[key]);
+          console.log(props.competitions[key].data.date_time)
         }
     }
 
@@ -58,7 +59,8 @@ function Upcoming(props) {
                 <div>
                     <span className="mincho">{PrismicReact.RichText.render(data[0].data.title_chinese)}</span>
                     {PrismicReact.RichText.render(data[0].data.title_english)}
-                    <p className="date">{moment(Date(data[0].data.date_time).toString()).format("lll")}</p>
+                    {/* <p className="date">{moment(Date(data[0].data.date_time).toString()).format("ll")}</p> */}
+                    <p className="date">{moment(data[0].data.date_time).format('lll')}</p>
                 </div>
                 <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-right.png"} />
             </div>
@@ -67,9 +69,9 @@ function Upcoming(props) {
             <div className="contestants-list">{Contestants}</div>
             <div className="upcoming-details">
                 <span className="left">{PrismicReact.RichText.render(data[0].data.location)}</span>
-                <p className="date">{moment(Date(data[0].data.date_time).toString()).format("lll")}</p>
+                <p className="date">{moment(data[0].data.date_time).format('lll')}</p>
             </div>
-            <a className="apply"><span className="mincho">提交</span> Apply now</a>
+            <a href={data[0].data.application_link}className="apply"><span className="mincho">提交</span> Apply now</a>
             <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </section>
     )   
@@ -81,17 +83,20 @@ function Contact(props) {
             <form>
                 <label>
                     <span className="mincho">注册通讯</span> Sign up for newsletter
-                    <input type="email" name="email" />
                 </label>
-                <input type="submit" value="提交 Submit" />
+                <div className="enter">
+                    <input type="email" name="email" />
+                    {/* <input type="submit" value="提交 Submit" /> */}
+                    <button type="submit"><span className="mincho">提交</span> Submit </button>
+                </div>
             </form>
             <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
             <div className="social-links">
                 <a href="http://instagram.com/ruthless.international">Instagram</a>
                 <a href="https://www.facebook.com/ruthlessfans/?hc_ref=SEARCH&fref=nf">Facebook</a>
 
-                <a href="http://facebook.com">Email</a>
-                <a href="http://facebook.com">Vimeo</a>
+                <a href="mailto:example@email.com">Email</a>
+                <a href="https://vimeo.com/missruthless">Vimeo</a>
             </div>
         </footer>
     )
@@ -194,13 +199,16 @@ function Publications(props) {
     var data = [];
     for (var key in props) {
         data.push(props[key]);
+        console.log(props[key].data.link_to_download.url)
     }
 
     const Publication = data.map((data, index) =>
       <li className="publication" key={index}>
-        <img alt="publication" src={data.data.image.url} />
-        <span className="mincho">{PrismicReact.RichText.render(data.data.title_chinese)} </span>
-        {PrismicReact.RichText.render(data.data.title_english)}
+        <a href={data.data.link_to_download.url}>
+            <img alt="publication" src={data.data.image.url} />
+            <span className="mincho">{PrismicReact.RichText.render(data.data.title_chinese)} </span>
+            {PrismicReact.RichText.render(data.data.title_english)}
+        </a>
       </li>
     );
 

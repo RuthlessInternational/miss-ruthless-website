@@ -249,6 +249,7 @@ body{
 }
 
 .publication img{
+  padding-bottom: 2rem;
   width: 200px;
   
 }
@@ -271,33 +272,56 @@ body{
 }
 
 label{
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
   width: 100%;
+}
+
+.enter{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
 }
 
 input[type=email]{
   border: none;
   border: 1px solid rgba(255,255,255,1);
-  padding: 1rem;
+  padding: 30px;
   width: 200px;
   color: white;
   background: rgba(255,255,255,0);
-  /* font-size: 24px; */
+  font-size: 16px;
+  padding-top: 12px; 
+  padding-bottom: 12px; 
+  font-family: 'Wremena','Times','Times New Roman',serif;
+  line-height: initial;
+  /* margin-top: -1px; */
 }
 
-input[type=submit]{
+button[type=submit]{
   border: none;
   border: 1px solid rgba(255,255,255,1);
-  padding: 1rem;
+  padding: 12px;
   /* width: 200px; */
   color: white;
   background: rgba(255,255,255,0);
-  /* font-size: 24px; */
+  font-size: 16px;
+  font-family: 'Wremena','Times','Times New Roman',serif;
+  line-height: initial;
 }
 
 .social-links a{
   padding: 1rem;
+  font-size: 20px;
+}
+
+.footer form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
 }
 
 .upcoming{

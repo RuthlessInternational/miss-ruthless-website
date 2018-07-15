@@ -163,7 +163,7 @@ export default class Contestants extends React.Component {
             <div className="single">
                 <div className="list">
                     <div className="image-wrapper">
-                        <img alt="profile" src={this.state.contestant.data.photo.url} />
+                        <img alt="" src={this.state.contestant.data.photo.url} />
                     </div>
                     <div className="bio">
                         {PrismicReact.RichText.render(this.state.contestant.data.biography_english)}
