@@ -1,0 +1,345 @@
+.frame.competitions{
+    /* background-color: black; */
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    /* justify-content: center; */
+    flex-direction: column;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    /* margin-bottom: 0px; */
+    height: 100vh;
+    background-color: black;
+  }
+
+.loading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.content .list{
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0px;
+    width: 50%;
+  }
+
+.content .view{
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0px;
+    width: 50%;
+    /* padding-bottom: 2rem; */
+    display: flex;
+    /* align-items: center; */
+}
+
+.view{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    align-items: flex-end;
+    /* padding-top: 50%; */
+    margin-left: 4rem; 
+}
+
+
+.list{
+    padding-top: 12rem;
+  /* margin-top: 15px; */
+}
+  
+
+.divider{
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column-reverse;
+    /* padding: 2rem; */
+}
+
+.line{
+    border-right: 2px solid rgba(255,255,255,.4);
+    height: 80vh;
+    width: 1px;
+    position: fixed;
+    bottom: -10px;
+}
+
+.list li{
+    list-style: none;
+    text-align: center;
+    padding: 2rem 4rem;
+}
+
+.list li a{
+    color: white;
+    text-decoration: none;
+}
+
+.list li a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+}
+
+.details{
+    text-align: right;
+    width: 100%;
+    overflow-y: scroll;
+    flex-direction: column;
+    align-items: flex-end;
+    display: flex;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+    /* overflow-y: hidden; */
+}
+
+.details.open{
+    position: initial;
+}
+
+.details .carouselContainer{
+    height: 100vh;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+
+.details .carouselContainer .carousel{
+    /* width: 100%; */
+    /* align-self: center; */
+    /* height: 100%; */
+    opacity: .5;
+}
+
+.details .carouselContainer .carousel:hover{
+    cursor: pointer;
+    opacity: 1;
+    z-index: 3;
+}
+
+.details .carouselContainer.open:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.details .carouselContainer.open{
+    width: 100vw;
+    height: 100vh;
+    opacity: 100%;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    /* right: 0px; */
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+    z-index: 999999;
+    background-color: rgba(0,0,0,.5);
+}
+
+.close{
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 48px;
+    height: 48px;
+    display: none;
+}
+
+.arrowRight{
+    width: 48px;
+    height: 48px;
+    padding: 10rem;
+    display: none;
+    transform: rotate(180deg)
+}
+
+.arrowLeft{
+    width: 48px;
+    height: 48px;
+    padding: 10rem;
+    display: none;
+}
+
+.arrowLeft.open, .arrowRight.open{
+    display: initial;
+}
+
+.close.open{
+    display: initial;
+}
+
+.close img{
+    width: 100%;;
+}
+
+.details .carouselContainer.open .carousel{
+    max-height: 80vh;
+    opacity: 1;
+}
+
+.details .carousel img{
+    /* max-width:50%; */
+}
+
+
+.carousel > div {
+    width: 650px;
+    /* position: absolute; */
+}
+
+.details .featured{
+    padding-top: 10rem;
+    height: 80vh;
+    opacity: .5;
+}
+
+.details a{
+   z-index: 1;
+}
+
+.info{
+     display: block;
+     padding-top: 3rem;
+     text-align: left;
+ }
+
+
+.competitions .contestants{
+    z-index: 1;
+    text-align: right;
+    /* height: 90vh; */
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* flex-direction: row-reverse; */
+    /* position: absolute; */
+    /* top: 100%; */
+    padding-top: 10rem;
+    animation-fill-mode: forwards !important;
+    animation: scroll 20s cubic-bezier(0.39, 0.575, 0.565, 1)  1 normal forwards;
+    /* transform: translate(0px, 50vh); */
+}
+
+  
+@keyframes scroll {
+from {
+    transform: translate(0px, 90vh);
+    /* opacity: 0; */
+}
+to {
+    transform: translate(0px, 5%);
+    /* opacity: 1; */
+    /* transform: translate(0px, 10vh); */
+}
+}
+
+.competitions .contestants.closed{
+    display: none;
+}
+
+.competitions .contestants li{
+    list-style: none;
+    width: 100%;
+    height: 48px;
+}
+
+.competitions .contestants li a{
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.competitions .contestants li a:hover{
+    text-decoration: underline;
+}
+
+.contestants h1{
+    font-size: 24px;
+}
+
+.details a{
+    font-size: 24px;
+}
+
+.label{
+    border: none;
+    /* border: 1px solid rgba(255,255,255,1); */
+    /* padding: 1rem; */
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    font-size: 24px;
+    background: rgba(255,255,255,0);
+    font-family: 'Wremena','Times','Times New Roman',serif;
+    text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+}
+
+.label.top{
+    border: 1px solid rgba(255,255,255,1);
+    margin-right: 10px; 
+}
+
+.label h3{
+    margin: 0px;
+    line-height: 1;
+    display: initial;
+}
+
+.label.top .mincho{
+    /* margin: 0px; */
+    line-height: 45px;
+}
+
+.date{
+    text-align: center;
+    margin: 0px;
+}
+
+.closed{
+    display: none;
+}
+
+.link{
+    height: 100%;
+}
+
+.link.min{
+    /* height: 0px; */
+    /* padding: 0px; */
+    display: none;
+    overflow: hidden;
+}
+
+/* .link.open a:hover{
+    text-decoration: none;
+} */
+
+.close{
+    z-index: 5;
+    padding: 2rem;
+    font-size: 32px;
+}

@@ -1,0 +1,78 @@
+/* @import url(https://fonts.googleapis.com/earlyaccess/sawarabimincho.css); */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  line-height: 3.75rem;
+  font-family: 'Wremena','Times','Times New Roman',serif;
+  font-weight: 400;
+  color: white;
+}
+
+html {
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+h1{
+  font-size: 36px;
+  font-weight: 400;
+  margin: 0px;
+}
+
+h3{
+  font-size: 24px;
+  font-weight: 400;
+  margin: 0px;
+
+}
+
+p{
+  font-size: 24px;
+  padding-bottom:15px;
+  font-weight: 200;
+}
+
+p{
+  line-height: 1.55;
+}
+
+.frame .header{
+  align-self: center;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+
+a:hover{
+  color: white;
+  text-decoration: underline;
+}
+
+.mincho{
+  font-family: 'Sawarabi Mincho','ヒラギノ明朝 ProN','Hiragino Mincho ProN','游明朝','游明朝体',YuMincho,'Yu Mincho','ＭＳ 明朝','MS Mincho',HiraMinProN-W3,'TakaoEx明朝',TakaoExMincho,'MotoyaLCedar','Droid Sans Japanese',serif;
+  line-height: 1.7 ;
+}
+
+.mincho h1{
+  font-size: 40px;
+}
+
+.mincho p{
+  line-height: 1.7 ;
+}
+
+.mincho strong{
+  font-family: 'Wremena','Times','Times New Roman',serif;
+  font-weight: normal !important;
+}
+
+li{
+  list-style: none;
+}

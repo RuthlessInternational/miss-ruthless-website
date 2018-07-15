@@ -1,0 +1,26 @@
+{
+  "name": "miss-ruthless",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://ruthlessinternational.github.io/miss-ruthless-website/",
+  "dependencies": {
+    "gh-pages": "^1.2.0",
+    "moment": "^2.22.2",
+    "prismic-javascript": "^1.5.0",
+    "prismic-reactjs": "^0.3.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-moment": "^0.7.9",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-siema": "./src/js/react-siema"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
