@@ -13,7 +13,9 @@
     "react-moment": "^0.7.9",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "react-siema": "./src/js/react-siema"
+    "react-siema": "./src/js/react-siema",
+    "three": "^0.94.0",
+    "three-react-obj-loader": "^1.0.4"
   },
   "scripts": {
     "predeploy": "npm run build",

@@ -30,7 +30,6 @@ export default class Contestants extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
   }
 
   componentDidUpdate(props) {
@@ -90,7 +89,7 @@ export default class Contestants extends React.Component {
   renderContestants(contestants){
     var data = [];
     for (var key in contestants) {
-        contestants[key].data.name_english.length > 0 ? data.push(contestants[key]) : console.log('')
+        contestants[key].data.name_english.length > 0 ? data.push(contestants[key]) : null
     }
 
     let letterArray = []
@@ -123,7 +122,7 @@ export default class Contestants extends React.Component {
         }
     }
 
-    console.log(data)
+    // console.log(data)
 
     const Competition = data.map((comp, index) =>
       <li key={index} className={comp.uid === this.state.uid || !this.state.open ? "link" : "link"}>   

@@ -25,14 +25,14 @@ h1{
 }
 
 h3{
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   margin: 0px;
 
 }
 
 p{
-  font-size: 24px;
+  font-size: 20px;
   padding-bottom:15px;
   font-weight: 200;
 }
@@ -56,13 +56,19 @@ a:hover{
 }
 
 .mincho{
-  font-family: 'Sawarabi Mincho','ヒラギノ明朝 ProN','Hiragino Mincho ProN','游明朝','游明朝体',YuMincho,'Yu Mincho','ＭＳ 明朝','MS Mincho',HiraMinProN-W3,'TakaoEx明朝',TakaoExMincho,'MotoyaLCedar','Droid Sans Japanese',serif;
-  line-height: 1.7 ;
+  font-family: 'Songti TC', 'Sawarabi Mincho','ヒラギノ明朝 ProN','Hiragino Mincho ProN','游明朝','游明朝体',YuMincho,'Yu Mincho','ＭＳ 明朝','MS Mincho',HiraMinProN-W3,'TakaoEx明朝',TakaoExMincho,'MotoyaLCedar','Droid Sans Japanese',serif;
+  line-height: 1.45 ;
+  /* margin-right: 10px; */
 }
 
 .mincho h1{
-  font-size: 40px;
+  font-size: 32px;
 }
+
+h1 .mincho{
+  margin-right: 10px;
+}
+
 
 .mincho p{
   line-height: 1.7 ;

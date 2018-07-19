@@ -121,7 +121,7 @@ export default class Competitions extends React.Component {
             <div className={this.state.open ? "contestants" : "contestants closed"}>
                 <h3 className={this.state.open || this.state.hover ? "label top" : "label top closed"}><span className="mincho">以前的比赛</span> Contestants</h3>
                 {Contestants}
-                <li><Link to={"/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>提交 See all ></Link></li>
+                <li><Link to={"/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>See all ><span className="mincho">提交</span> </Link></li>
             </div>
         )
     } else {
@@ -180,7 +180,6 @@ export default class Competitions extends React.Component {
     var data = [];
     for (var key in competitions) {
         data.push(competitions[key]);
-        console.log(competitions[key].data.video)
     }
 
     const Competition = data.map((comp, index) =>
@@ -192,7 +191,7 @@ export default class Competitions extends React.Component {
             <span className="denver">
                 {PrismicReact.RichText.render(comp.data.title_english)}
             </span>
-            <p className="date">{moment(Date(comp.data.date_time).toString()).format("ll")}</p>
+            <p className="date">{moment(comp.data.date_time).format('YYYY-MM-DD')}</p>
         </Link>
         <div className={comp.uid === this.state.uid && this.state.open ? "info" : "info closed"} >
             {PrismicReact.RichText.render(comp.data.description_english)}

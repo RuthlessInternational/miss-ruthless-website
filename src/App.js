@@ -4,6 +4,7 @@ import Prismic from 'prismic-javascript';
 import PrismicReact from 'prismic-reactjs';
 
 import moment from 'moment'
+import Scene from './components/Scene'
 
 import './App.css';
 const apiEndpoint = 'https://miss-r.cdn.prismic.io/api/v2';
@@ -20,17 +21,19 @@ function Splash(props) {
 function BG(props) {
     return (
         <div className="bg">
-            <img className="bg-image" alt="splash" src={process.env.PUBLIC_URL + "/images/flower-bg.png"} />
+            <Scene {...props}/>
         </div>
     )
 }
 
 function Upcoming(props) {
     var data = [];
+    let i = 0
     var data2 = [];
     for (let key in props.competitions) {
-        if (key < 1){
+        if (props.competitions[key].data.type === "Upcoming" && i < 1){
           data.push(props.competitions[key]);
+          i++
         }
     }
 
@@ -56,20 +59,26 @@ function Upcoming(props) {
                 <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-left.png"} />
                 <div>
                     <span className="mincho">{PrismicReact.RichText.render(data[0].data.title_chinese)}</span>
-                    {PrismicReact.RichText.render(data[0].data.title_english)}
-                    {/* <p className="date">{moment(Date(data[0].data.date_time).toString()).format("ll")}</p> */}
-                    <p className="date">{moment(data[0].data.date_time).format('lll')}</p>
+                    <span className="denver">{PrismicReact.RichText.render(data[0].data.title_english)}</span>
+                    <p className="date">{moment(data[0].data.date_time).format('YYYY-MM-DD')}</p>
                 </div>
                 <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-right.png"} />
             </div>
 
             <div className="rule"></div>
-            <div className="contestants-list">{Contestants}</div>
+            <section className="preview">
+                    {PrismicReact.RichText.render(data[0].data.preview_text_english)}
+                <div className="mincho ">
+                    {PrismicReact.RichText.render(data[0].data.preview_text_chinese)}
+                </div>
+            </section>
+
+            {/* <div className="contestants-list">{Contestants}</div> */}
             <div className="upcoming-details">
                 <span className="left">{PrismicReact.RichText.render(data[0].data.location)}</span>
-                <p className="date">{moment(data[0].data.date_time).format('lll')}</p>
+                <p className="date">{moment(data[0].data.date_time).format('YYYY-MM-DD, h:mm a')}</p>
             </div>
-            <a href={data[0].data.application_link.url}className="apply"><span className="mincho">提交</span> Apply now</a>
+            <a href={data[0].data.button_link.url} className="apply"><span className="mincho">{PrismicReact.RichText.render(data[0].data.button_text_chinese)}</span>{PrismicReact.RichText.render(data[0].data.button_text_english)}</a>
             <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </section>
     )   
@@ -78,13 +87,12 @@ function Upcoming(props) {
 function Contact(props) {
     return (
         <footer className="footer">
-            <form>
+            <form id="contactform" action="https://formsubmit.io/send/d88822a1-1636-4c31-8885-fb1b072f9dbd" method="POST">
                 <label>
                     <span className="mincho">注册通讯</span> Sign up for newsletter
                 </label>
                 <div className="enter">
                     <input type="email" name="email" />
-                    {/* <input type="submit" value="提交 Submit" /> */}
                     <button type="submit"><span className="mincho">提交</span> Submit </button>
                 </div>
             </form>
@@ -141,7 +149,8 @@ function Competitions(props) {
                 {PrismicReact.RichText.render(comp.data.title_chinese)}
             </span>
             <span className="denver">{PrismicReact.RichText.render(comp.data.title_english)}</span>
-            <p className="date">{moment(comp.data.date_time).format('ll')}</p>
+            {/* <p className="date">{moment(comp.data.date_time).format('ll')}</p> */}
+            <p className="date">{moment(comp.data.date_time).format('YYYY-MM-DD')}</p>
         </Link>
       </li>
     );
@@ -227,15 +236,17 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.fireOnScroll = this.fireOnScroll.bind(this);
-  }
-
-  state = {
-    doc: null,
-    about: null,
-    competitions: null,
-    contestants: null,
-    publications: null,
-    notFound: false,
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.state = { width: 0, height: 0,
+        doc: null,
+        about: null,
+        competitions: null,
+        contestants: null,
+        publications: null,
+        notFound: false,
+        x: 0, y: 0
+    };
   }
 
   componentWillMount() {
@@ -243,19 +254,38 @@ export default class App extends React.Component {
   }
 
   fireOnScroll() {
-    window.scrollY > window.innerHeight ? this.setState({fade: true}) : this.setState({fade: false})
+    window.scrollY > window.innerHeight*.75 ? this.setState({fade: true}) : this.setState({fade: false})
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.fireOnScroll, true);
+    window.addEventListener('mousemove', this.onMouseMove, true);
+    window.addEventListener('resize', this.updateWindowDimensions);
+    this.updateWindowDimensions();
+
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.fireOnScroll, true);
+    window.removeEventListener('mousemove', this.onMouseMove, true);
+    window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
   componentWillReceiveProps(props) {
-    this.fetchPage(props);
+    // this.fetchPage(props);
+  }
+
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  onMouseMove(e) {
+    let width = this.state.width
+    let height = this.state.height
+
+    let mouseX = ( e.clientX - (width/2) ) * 4;
+	let mouseY = ( e.clientY - (height/2) ) * 4;
+    this.setState({ x: mouseX, y: mouseY });
   }
 
   fetchPage(props) {
@@ -279,7 +309,7 @@ export default class App extends React.Component {
   render() {
     if (this.state.competitions) {
       return (
-        <div className="frame main" ref="elementToFire">
+        <div className="frame main" ref={(frame) => { this.frame = frame }}>
             <Splash fade={this.state.fade}/>
             <Upcoming competitions={this.state.competitions} contestants={this.state.contestants}/>
             <About {...this.state.about}/>
@@ -287,7 +317,7 @@ export default class App extends React.Component {
             <Contestants {...this.state.contestants}/>
             <Publications {...this.state.publications}/>
             <Contact />
-            <BG />
+            <BG mouseX={this.state.x} mouseY={this.state.y} width={this.state.width} height={this.state.height}/>
         </div>
       );
     }

@@ -101,7 +101,7 @@
     height: 100%;
     position: relative;
     overflow: visible;
-    /* overflow-y: hidden; */
+    overflow-y: hidden;
 }
 
 .details.open{
@@ -149,7 +149,7 @@
     align-items: center;
     /* background-color: red; */
     z-index: 999999;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0,0,0,.75);
 }
 
 .close{
@@ -260,6 +260,10 @@ to {
     height: 48px;
 }
 
+.competitions .contestants li .mincho{
+    margin-right: 5px;
+}
+
 .competitions .contestants li a{
     color: white;
     text-decoration: none;
@@ -350,4 +354,44 @@ to {
 
 .video-container iframe{
     width: 100%;
+}
+
+@media only screen and (max-width: 1024px) {
+    .list li {
+        padding: 0px;
+        padding-bottom: 3rem;
+    }
+
+    .competitions .contestants{
+        transform: translate(0px, 5%);
+        padding-top: 0px;
+        padding-bottom: 5rem;
+        animation: none;
+    }
+
+    .competitions .contestants li a{
+        flex-direction: initial;
+        width: auto;
+    }
+
+    .competitions .contestants li {
+        list-style: none;
+        width: auto;
+        height: 48px;
+        text-align: center;
+        display: flex;
+        /* align-items: center; */
+        /* flex-direction: row; */
+        justify-content: center;
+    }
+
+    .details{
+        display: block;
+    }
+
+    .details .carouselContainer{
+        position: relative;
+        display: none;
+    }
+
 }
