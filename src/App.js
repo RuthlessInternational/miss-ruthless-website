@@ -143,7 +143,7 @@ function Competitions(props) {
 
     const Competition = data.map((comp, index) =>
       <li className="link" key={index}>
-        <Link onClick={(e) => this.openComp(comp.uid, index, this)} to={process.env.PUBLIC_URL +  "/competitions/" + comp.uid}>
+        <Link to={process.env.PUBLIC_URL +  "/competitions/" + comp.uid}>
             <span className="mincho">
                 {PrismicReact.RichText.render(comp.data.title_chinese)}
             </span>

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Switch
   } from 'react-router-dom'
@@ -17,6 +17,7 @@ import About from './components/About';
 import registerServiceWorker from './registerServiceWorker';
 
 const Routes = (props) => (
+  
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path={"/about"} component={About} />
@@ -27,6 +28,7 @@ const Routes = (props) => (
         <Route component={App}/>
       </Switch>
     </Router>
+    
   );
 
 ReactDOM.render(<Routes />, document.getElementById('root'));

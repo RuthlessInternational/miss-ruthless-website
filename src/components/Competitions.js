@@ -35,6 +35,7 @@ export default class Competitions extends React.Component {
     hover: false,
     openCarousel: false,
     featured: false,
+    currentSlideNum: 0
   }
 
   componentWillMount() {
@@ -91,6 +92,16 @@ export default class Competitions extends React.Component {
 
     handleHover(imageUrl) {
         this.setState({featured: imageUrl})
+    }
+
+   changeSlides(dir) {
+    if(dir==="next"){
+        slider.next()
+    } else{
+        slider.prev()
+    }
+    this.setState({currentSlideNum: slider.currentSlide})
+     console.log(slider.currentSlide)
     }
 
   renderContestant(contestants){
@@ -153,14 +164,20 @@ export default class Competitions extends React.Component {
                 <section className={this.state.openCarousel ? "details open" : "details"}>
                     {this.renderContestant(this.state.contestants)}
                     <div className={this.state.openCarousel ? "carouselContainer open" : "carouselContainer"}>
-                        <div className={this.state.openCarousel ? "close open" : "close"} onClick={(e) => this.closeSlides()}><img alt="close" src={process.env.PUBLIC_URL + "/images/close.png"} /></div>
-                        <div className={this.state.openCarousel ? "arrowLeft open" : "arrowLeft"} ><img alt="next" src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => slider.prev()}/></div>
+                        <div className={this.state.openCarousel ? "close open" : "close"} onClick={(e) => this.closeSlides()}>
+                            <img alt="close" src={process.env.PUBLIC_URL + "/images/close.png"} />
+                        </div>
+                        <div className={this.state.openCarousel ? "arrowLeft open" : "arrowLeft"} >
+                            <img alt="prev" style={this.state.currentSlideNum <= 0 ? {opacity: .3} : {opacity: 1}} src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => this.changeSlides("prev")}/>
+                        </div>
                         <div className={this.state.open ? "carousel" : "carousel open"} onClick={(e) => this.openSlides()}>
                             <ReactSiema className="carousel" {...options} ref={siema => slider = siema}>
                                 {Slides}
                             </ReactSiema>
                         </div>
-                        <div className={this.state.openCarousel ? "arrowRight open" : "arrowRight"}><img alt="prev" src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => slider.next()}/></div>
+                        <div className={this.state.openCarousel ? "arrowRight open" : "arrowRight"}>
+                            <img alt="next" style={this.state.currentSlideNum >= slides.length-1 ? {opacity: .3} : {opacity: 1}} src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => this.changeSlides("next")}/>
+                        </div>
                     </div>
                 </section>
             )
