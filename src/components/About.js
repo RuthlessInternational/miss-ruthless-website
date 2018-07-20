@@ -63,13 +63,13 @@ export default class Contestants extends React.Component {
                 <div className="view">
                     <img className="featured" alt="featured" src={this.state.about[0].data.about_image.url} />
                     <div className="credits">
-                    <h3><span className="mincho">平面設計</span> Art Direction & Design</h3>
-                    <p><span className="mincho">曾頌恩</span>  Matthew Sang</p>
-                    <p>Phil Cao</p>
-                    <h3><span className="mincho">網站設計</span> Programming</h3>
-                    <p><span className="mincho">胡師堯</span> Eric Hu</p>
-                    <p>Callil Capuozzo</p>
-                </div>
+                        <h3><span className="mincho">平面設計</span> Art Direction & Design</h3>
+                        <p><span className="mincho">曾頌恩</span>  Matthew Tsang</p>
+                        <p><span className="mincho">曹正楠</span> Phil Cao</p>
+                        <h3><span className="mincho">網站設計</span> Programming</h3>
+                        <p><span className="mincho">胡師堯</span> Eric Hu</p>
+                        <p>Callil Capuozzo</p>
+                    </div>
                 </div>
             </div>
         </div>
