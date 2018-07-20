@@ -18,6 +18,26 @@
     align-items: center;
 }
 
+.credits{
+    position: absolute;
+    text-align: right;
+    width: 50%;
+    right: 25px;
+    bottom: 25px;
+}
+
+.credits p{
+    margin: 0px;
+    padding: 0px;
+}
+
+.credits h3{
+    margin: 0px;
+    font-weight: 700;
+    padding: 0px;
+}
+
+
 @media only screen and (max-width: 1024px) {
 
     .content{
@@ -51,4 +71,29 @@
         padding: 0px;
         padding-top: 10rem;
     }
+
+    .about .content .view{
+        flex-wrap: wrap;
+    }
+
+    .credits{
+        position: initial;
+        float: left;
+        text-align: left;
+        width: 100%;
+        /* left: 25px; */
+        /* bottom: 25px; */
+    }
+    
+    .credits p{
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    .credits h3{
+        margin: 0px;
+        font-weight: 700;
+        padding: 0px;
+    }
+    
 }

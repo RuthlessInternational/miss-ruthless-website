@@ -2,11 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import Prismic from 'prismic-javascript';
 import PrismicReact from 'prismic-reactjs';
-import {Date} from 'prismic-reactjs';
-
 import moment from 'moment'
-
-
 import Header from "./Header"
 
 import '../App.css';
@@ -42,7 +38,6 @@ export default class Competitions extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props.match.params)
     if (Object.keys(this.props.match.params).length !== 0 && this.props.match.params.constructor === Object) {
         this.setState({open: true, uid: this.props.match.params.uid})
     } 
@@ -54,7 +49,6 @@ export default class Competitions extends React.Component {
   }
 
   componentDidUpdate(props) {
-    console.log(this.props.location.pathname)
     if (this.props.location.pathname === process.env.PUBLIC_URL + "/competitions/" && this.state.open){
         this.setState({open: false})
     }
@@ -96,7 +90,6 @@ export default class Competitions extends React.Component {
     }
 
     handleHover(imageUrl) {
-        console.log(imageUrl)
         this.setState({featured: imageUrl})
     }
 
@@ -117,7 +110,8 @@ export default class Competitions extends React.Component {
             <li key={index}>   
                 <Link 
                     onClick={(e) => this.openComp(cont.uid)} 
-                    to={process.env.PUBLIC_URL + "/contestants/" + cont.uid}>
+                    to={process.env.PUBLIC_URL + "/contestants/" + cont.uid}
+                    className="contestant-name">
                     {PrismicReact.RichText.render(cont.data.name_english)}
                     <span className="mincho">{PrismicReact.RichText.render(cont.data.name_chinese)}</span>
                 </Link>
@@ -129,7 +123,7 @@ export default class Competitions extends React.Component {
             <div className={this.state.open ? "contestants" : "contestants closed"}>
                 <h3 className={this.state.open || this.state.hover ? "label top" : "label top closed"}><span className="mincho">以前的比赛</span> Contestants</h3>
                 {Contestants}
-                <li><Link to={process.env.PUBLIC_URL + "/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>See all ><span className="mincho">提交</span> </Link></li>
+                {/* <li><Link to={process.env.PUBLIC_URL + "/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>See all ><span className="mincho">提交</span> </Link></li> */}
             </div>
         )
     } else {
@@ -175,7 +169,6 @@ export default class Competitions extends React.Component {
         for (key in competitions) {
             data.push(competitions[key]);
         }
-        console.log(this.state.featured)
         return (
             <section className="details">
                 <img className="featured" alt="featured" src={!this.state.featured ?  data[0].data.featured_image.url : this.state.featured} />
@@ -193,7 +186,7 @@ export default class Competitions extends React.Component {
     if (clippings.length > 0) {
         return (
             <div className="clips">
-                <p class="label top">Press and Media:</p>
+                <p className="label top">Press and Media:</p>
                 {Clips}
             </div>
         )
@@ -218,7 +211,7 @@ export default class Competitions extends React.Component {
             <span className="denver">
                 {PrismicReact.RichText.render(comp.data.title_english)}
             </span>
-            <p className="date">{moment(comp.data.date_time).format('YYYY-MM-DD')}</p>
+            <p className="date">{moment(comp.data.date_time).format('YYYY/MM/DD')}</p>
         </Link>
         <div className={comp.uid === this.state.uid && this.state.open ? "info" : "info closed"} >
             {PrismicReact.RichText.render(comp.data.description_english)}
@@ -241,9 +234,9 @@ export default class Competitions extends React.Component {
         return (
             <div className="frame competitions">
                 {this.state.open ? 
-                    <Header title_english={"Competition"} title_chinese={"比赛 "} navTo={this.state.open ? false : true} context={"competitions"}/>
+                    <Header title_english={"Competition"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"competitions"}/>
                     : 
-                    <Header title_english={"Past Competitions"} title_chinese={"以前的比赛 "} navTo={this.state.open ? false : true} context={"competitions"}/>
+                    <Header title_english={"Competitions"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"competitions"}/>
                 }
                 
                 <div className="content">

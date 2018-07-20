@@ -10,8 +10,8 @@ export default class Header extends React.Component {
 
     addBack = () =>{
         this.props.navTo ? 
-        this.setState({backText_english: "Back", backText_chinese: "回"}) :
-        this.setState({backText_english: "Close", backText_chinese: "关"})
+        this.setState({backText_english: "Back", backText_chinese: "回首頁"}) :
+        this.setState({backText_english: "Close", backText_chinese: "關閉"})
     }
 
     removeBack = () =>{

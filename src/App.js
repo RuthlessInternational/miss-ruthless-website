@@ -45,24 +45,26 @@ function Upcoming(props) {
         }
     }
 
-    const Contestants = data2.map((cont, index) =>
-        <li className="contestant" key={index}>
-            <Link to={process.env.PUBLIC_URL + "/contestants/" + cont.uid} id={cont.uid} className="contestant"><span className="mincho">{PrismicReact.RichText.render(cont.data.name_chinese)}</span>{PrismicReact.RichText.render(cont.data.name_english)}</Link>
-        </li>
-    );
+    // const Contestants = data2.map((cont, index) =>
+    //     <li className="contestant" key={index}>
+    //         <Link to={process.env.PUBLIC_URL + "/contestants/" + cont.uid} id={cont.uid} className="contestant"><span className="mincho">{PrismicReact.RichText.render(cont.data.name_chinese)}</span>{PrismicReact.RichText.render(cont.data.name_english)}</Link>
+    //     </li>
+    // );
 
 
     return (    
         <section className="upcoming">
-            <div className="upcoming-title">
-                <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-left.png"} />
-                <div>
-                    <span className="mincho">{PrismicReact.RichText.render(data[0].data.title_chinese)}</span>
-                    <span className="denver">{PrismicReact.RichText.render(data[0].data.title_english)}</span>
-                    <p className="date">{moment(data[0].data.date_time).format('YYYY-MM-DD')}</p>
+            <Link to={process.env.PUBLIC_URL +  "/competitions/" + data[0].uid}>
+                <div className="upcoming-title">
+                    <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-left.png"} />
+                    <div>
+                        <span className="mincho">{PrismicReact.RichText.render(data[0].data.title_chinese)}</span>
+                        <span className="denver">{PrismicReact.RichText.render(data[0].data.title_english)}</span>
+                        <p className="date">{moment(data[0].data.date_time).format('YYYY/MM/DD')}</p>
+                    </div>
+                    <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-right.png"} />
                 </div>
-                <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-right.png"} />
-            </div>
+            </Link>
 
             <div className="rule"></div>
             <section className="preview">
@@ -72,10 +74,9 @@ function Upcoming(props) {
                 </div>
             </section>
 
-            {/* <div className="contestants-list">{Contestants}</div> */}
             <div className="upcoming-details">
                 <span className="left">{PrismicReact.RichText.render(data[0].data.location)}</span>
-                <p className="date">{moment(data[0].data.date_time).format('YYYY-MM-DD, h:mm a')}</p>
+                <p className="date">{moment(data[0].data.date_time).format('YYYY/MM/DD, h:mm a')}</p>
             </div>
             <a href={data[0].data.button_link.url} className="apply"><span className="mincho">{PrismicReact.RichText.render(data[0].data.button_text_chinese)}</span>{PrismicReact.RichText.render(data[0].data.button_text_english)}</a>
             <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
@@ -88,20 +89,20 @@ function Contact(props) {
         <footer className="footer">
             <form id="contactform" action="https://formsubmit.io/send/d88822a1-1636-4c31-8885-fb1b072f9dbd" method="POST">
                 <label>
-                    <span className="mincho">注册通讯</span> Sign up for newsletter
+                    <span className="mincho">訂閱</span> Newsletter
                 </label>
                 <div className="enter">
                     <input type="email" name="email" />
-                    <button type="submit"><span className="mincho">提交</span> Submit </button>
+                    <button type="submit"> OK </button>
                 </div>
             </form>
             <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
             <div className="social-links">
-                <a href="http://instagram.com/ruthless.international">Instagram</a>
-                <a href="https://www.facebook.com/ruthlessfans/?hc_ref=SEARCH&fref=nf">Facebook</a>
+                <a target="_blank" rel="noopener noreferrer" href="http://instagram.com/ruthless.international">Instagram</a>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruthlessfans/?hc_ref=SEARCH&fref=nf">Facebook</a>
 
-                <a href="mailto:miss@ruthless.international">Email</a>
-                <a href="https://vimeo.com/missruthless">Vimeo</a>
+                <a target="_blank" rel="noopener noreferrer" href="mailto:miss@ruthless.international">Email</a>
+                <a target="_blank" rel="noopener noreferrer" href="https://vimeo.com/missruthless">Vimeo</a>
             </div>
         </footer>
     )
@@ -112,9 +113,9 @@ function About(props) {
     return (    
         <section className="about">
             <div className="section-header">
-                <div className="section-title"><span className="mincho">描写</span> About</div>
+                <div className="section-title"><span className="mincho">關於我們</span> About</div>
                 <div className="section-link">
-                    <Link to={process.env.PUBLIC_URL + "/about"}><span className="mincho">提交</span> Read more</Link>
+                    <Link to={process.env.PUBLIC_URL + "/about"}><span className="mincho">更多</span> Read more</Link>
                     <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
@@ -147,7 +148,7 @@ function Competitions(props) {
                 {PrismicReact.RichText.render(comp.data.title_chinese)}
             </span>
             <span className="denver">{PrismicReact.RichText.render(comp.data.title_english)}</span>
-            <p className="date">{moment(comp.data.date_time).format('YYYY-MM-DD')}</p>
+            <p className="date">{moment(comp.data.date_time).format('YYYY/MM/DD')}</p>
         </Link>
       </li>
     );
@@ -155,9 +156,9 @@ function Competitions(props) {
     return (    
         <section className="competitions">
             <div className="section-header">
-                <div className="section-title"><span className="mincho">以前的比赛</span> Previous competitions</div>
+                <div className="section-title"><span className="mincho">競賽</span> Competitions</div>
                 <div className="section-link">
-                    <Link to={process.env.PUBLIC_URL + "/competitions"} params={{ open: false }}><span className="mincho">提交</span> See All</Link>
+                    <Link to={process.env.PUBLIC_URL + "/competitions"} params={{ open: false }}><span className="mincho">顯示全部</span> See All</Link>
                     <div className="arrow-right"><img alt="more" className="arrow-right" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
@@ -188,7 +189,7 @@ function Contestants(props) {
     return (    
         <section className="contestants">
             <div className="section-header">
-                <div className="section-title"><span className="mincho">以前的比赛</span> Contestants</div>
+                <div className="section-title"><span className="mincho">佳麗</span> Contestants</div>
                 <div className="section-link">
                     <a href={process.env.PUBLIC_URL + "/contestants"}><span className="mincho">提交</span> See All</a>
                     <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
@@ -218,7 +219,7 @@ function Publications(props) {
     return (    
         <section className="publications">
             <div className="section-header">
-                <div className="section-title"><span className="mincho">商店</span> Publications</div>
+                <div className="section-title"><span className="mincho">刊物</span> Publications</div>
                 {/* <div className="section-link">
                     <a href="/publi">提交 See All</a>
                     <div className="arrow-right"><img className="arrow-right" src="/images/arrowRight.png" /></div>

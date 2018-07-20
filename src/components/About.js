@@ -41,7 +41,6 @@ export default class Contestants extends React.Component {
         api.query(
             Prismic.Predicates.at('document.type', 'about'), { pageSize : 100, page : 1}
         ).then(response => {
-            console.log(response.results)
             this.setState({about: response.results})
         });
     });
@@ -52,7 +51,7 @@ export default class Contestants extends React.Component {
     if (this.state.about) {
       return (
         <div className="frame about">
-            <Header title_english={"About"} title_chinese={"描写 "} navTo={this.state.open ? false : true} context="about"/>
+            <Header title_english={"About"} title_chinese={"關於我們"} navTo={this.state.open ? false : true} context="about"/>
             <div className="content">
                 <div className="list">
                     {PrismicReact.RichText.render(this.state.about[0].data.text_english)}
@@ -63,6 +62,14 @@ export default class Contestants extends React.Component {
                 </div>
                 <div className="view">
                     <img className="featured" alt="featured" src={this.state.about[0].data.about_image.url} />
+                    <div className="credits">
+                    <h3><span className="mincho">平面設計</span> Art Direction & Design</h3>
+                    <p><span className="mincho">曾頌恩</span>  Matthew Sang</p>
+                    <p>Phil Cao</p>
+                    <h3><span className="mincho">網站設計</span> Programming</h3>
+                    <p><span className="mincho">胡師堯</span> Eric Hu</p>
+                    <p>Callil Capuozzo</p>
+                </div>
                 </div>
             </div>
         </div>

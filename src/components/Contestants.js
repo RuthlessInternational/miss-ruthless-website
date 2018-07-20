@@ -79,7 +79,6 @@ renderLetterTitle(letter, data){
     for (var i = 0; i < data.length; i++) {
         if (data[i].data.name_english[0].text[0].toUpperCase() === letter.toUpperCase()) {
             return <div className="letter" ref={input => {this[`letter${letter}`] = input;}} onClick={(e) => this.scrollTo(letter)}>{letter.toUpperCase()}</div>
-            break;
         }
     }
   }
@@ -88,7 +87,6 @@ renderLetterTitle(letter, data){
     for (var i = 0; i < data.length; i++) {
         if (data[i].data.name_english[0].text[0].toUpperCase() === letter.toUpperCase()) {
             return <div className="letter"  onClick={(e) => this.scrollTo(letter)}>{letter.toUpperCase()}</div>
-            break;
         }
     }
   }
@@ -236,7 +234,7 @@ renderLetterTitle(letter, data){
                 {this.state.open && this.state.contestant ? 
                 <Header title_english={PrismicReact.RichText.render(this.state.contestant.data.name_english)} title_chinese={PrismicReact.RichText.render(this.state.contestant.data.name_chinese)} navTo={this.state.open ? false : true} context={"contestants"}/>
                 :
-                <Header title_english={"Contestants"} title_chinese={"描写 "} navTo={this.state.open ? false : true} context={"contestants"}/>
+                <Header title_english={"Contestants"} title_chinese={"佳麗"} navTo={this.state.open ? false : true} context={"contestants"}/>
                 }
                 {this.state.open ? this.renderSingle() : this.renderContestants(this.state.contestants)}
                 {this.state.open ? null : this.renderJumpList(this.state.contestants)}

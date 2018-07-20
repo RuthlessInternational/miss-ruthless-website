@@ -64,3 +64,29 @@
     padding-right: 10px;
 }
 
+@media only screen and (max-width: 1024px) {
+    .header .mincho h1{
+        /* padding-right: 0px; */
+    }
+    .header h1{
+        flex-wrap: wrap;
+        justify-content: center;
+        white-space: pre-wrap;
+        /* margin-right: 20px; */
+        font-size: 24px;
+    }
+
+    .header h3{
+        flex-wrap: wrap;
+        justify-content: center;
+        white-space: pre-wrap;
+        /* margin-right: 20px; */
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .backtext{
+        display: none !important;
+    }
+
+}
