@@ -23,7 +23,8 @@
     flex-direction: row;
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow:scroll;
 }
 
 .content .list{
@@ -354,6 +355,15 @@ to {
 
 .video-container iframe{
     width: 100%;
+}
+
+.clips p{
+    margin: 0px;
+    padding: 0px;
+}
+
+.clip p{
+    padding-top: 10px;
 }
 
 @media only screen and (max-width: 1024px) {

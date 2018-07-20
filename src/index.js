@@ -25,13 +25,14 @@ import registerServiceWorker from './registerServiceWorker';
 // `;
 
 const Routes = (props) => (
-    <Router>
+    <Router >
       <Switch>
-        <Route exact path="/about" component={About} />
-        <Route exact path="/competitions" render={routeProps => <Competitions {...routeProps} />} />
-        <Route exact path="/competitions/:uid" render={routeProps => <Competitions {...routeProps} />} />
-        <Route exact path="/contestants" render={routeProps => <Contestants {...routeProps} />} />
-        <Route exact path="/contestants/:uid" render={routeProps => <Contestants {...routeProps}/>} />
+        {/* <Route exact path={`${process.env.PUBLIC_URL}/about`} component={About}></Route> */}
+        <Route exact path={process.env.PUBLIC_URL + "/about"} component={About} />
+        <Route exact path={process.env.PUBLIC_URL + "/competitions"} render={routeProps => <Competitions {...routeProps} />} />
+        <Route exact path={process.env.PUBLIC_URL + "/competitions/:uid"} render={routeProps => <Competitions {...routeProps} />} />
+        <Route exact path={process.env.PUBLIC_URL + "/contestants"} render={routeProps => <Contestants {...routeProps} />} />
+        <Route exact path={process.env.PUBLIC_URL + "/contestants/:uid"} render={routeProps => <Contestants {...routeProps}/>} />
         <Route component={App}/>
       </Switch>
     </Router>

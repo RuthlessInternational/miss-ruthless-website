@@ -11,15 +11,17 @@ const apiEndpoint = 'https://miss-r.cdn.prismic.io/api/v2';
 
 
 export default class Contestants extends React.Component {
-
-  state = {
-    uid: null,
-    competitions: null,
-    open: false,
-    hover: false,
-    openCarousel: false,
-    lastLetter: "A"
-  }
+    constructor(props) {
+    super(props);
+    this.state = {
+        uid: null,
+        competitions: null,
+        open: false,
+        hover: false,
+        openCarousel: false,
+        lastLetter: "A"
+        }
+    }
 
   componentWillMount() {
     if (Object.keys(this.props.match.params).length !== 0 && this.props.match.params.constructor === Object) {
@@ -29,11 +31,8 @@ export default class Contestants extends React.Component {
     this.fetchPage(this.props);
   }
 
-  componentDidMount() {
-  }
-
   componentDidUpdate(props) {
-    if (this.props.location.pathname === "/contestants/" && this.state.open){
+    if (this.props.location.pathname === process.env.PUBLIC_URL + "/contestants/" && this.state.open){
         this.setState({open: false})
     }
   }
@@ -41,6 +40,13 @@ export default class Contestants extends React.Component {
   componentWillReceiveProps(props) {
     this.fetchContestant()
   }
+
+  scrollTo(letter){
+    let el = this[`letter${letter}`].getBoundingClientRect();
+    let parent = this.refs.container
+    console.log(parent.scrollLeft + el.x)
+    parent.scrollLeft = (parent.scrollLeft + el.x) - 100
+  };
 
   fetchPage(props) {   
     Prismic.api(apiEndpoint).then(api => {
@@ -67,9 +73,25 @@ export default class Contestants extends React.Component {
          this.setState({uid: uid, open: true, id: id})
          this.fetchContestant()
     }
-        // this.renderCommpetition(this.state.competitions, this.state.open, this.state.uid)
-    }
+}
 
+renderLetterTitle(letter, data){
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].data.name_english[0].text[0].toUpperCase() === letter.toUpperCase()) {
+            return <div className="letter" ref={input => {this[`letter${letter}`] = input;}} onClick={(e) => this.scrollTo(letter)}>{letter.toUpperCase()}</div>
+            break;
+        }
+    }
+  }
+
+  renderLetterJump(letter, data){
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].data.name_english[0].text[0].toUpperCase() === letter.toUpperCase()) {
+            return <div className="letter"  onClick={(e) => this.scrollTo(letter)}>{letter.toUpperCase()}</div>
+            break;
+        }
+    }
+  }
 
   renderLetter(letter, data){
     return data.map((contestant, index) =>
@@ -77,7 +99,7 @@ export default class Contestants extends React.Component {
             <li key={index}>
                 <Link 
                     onClick={(e) => this.openComp(contestant.uid, contestant.id)} 
-                    to={"/contestants/" + contestant.uid}>
+                    to={process.env.PUBLIC_URL + "/contestants/" + contestant.uid}>
                     {PrismicReact.RichText.render(contestant.data.name_english)}
                     <span className="mincho">{PrismicReact.RichText.render(contestant.data.name_chinese)}</span>
                 </Link>
@@ -99,11 +121,35 @@ export default class Contestants extends React.Component {
     }
 
     return (
-        <div className="content">
+        <div className="content" ref="container">
             {letterArray.map((letter, index) => (
                 <div key={index} className="ordered">
-                    <div className="letter">{letter.toUpperCase()}</div>
+                    {this.renderLetterTitle(letter, data)}
                     {this.renderLetter(letter, data)}
+                </div>
+            ))}
+        </div>
+    );
+  }
+
+  renderJumpList(contestants){
+    var data = [];
+    for (var key in contestants) {
+        contestants[key].data.name_english.length > 0 ? data.push(contestants[key]) : null
+    }
+
+    let letterArray = []
+
+    for (let i = 0; i < 26; i++) {
+        letterArray.push((i+10).toString(36))
+    }
+
+    return (
+        <div className="jumplist">
+            {letterArray.map((letter, index) => (
+                <div key={index} className="ordered">
+                    {this.renderLetterJump(letter, data)}
+                    {/* {this.renderLetter(letter, data)} */}
                 </div>
             ))}
         </div>
@@ -126,7 +172,7 @@ export default class Contestants extends React.Component {
 
     const Competition = data.map((comp, index) =>
       <li key={index} className={comp.uid === this.state.uid || !this.state.open ? "link" : "link"}>   
-        <Link onClick={(e) => this.openComp(comp.uid, index, this)} to={"/competitions/" + comp.uid}>
+        <Link onClick={(e) => this.openComp(comp.uid, index, this)} to={process.env.PUBLIC_URL + "/competitions/" + comp.uid}>
             <span className="mincho">
                 <h1>{PrismicReact.RichText.render(comp.data.title_chinese)}</h1>
             </span>
@@ -193,6 +239,7 @@ export default class Contestants extends React.Component {
                 <Header title_english={"Contestants"} title_chinese={"描写 "} navTo={this.state.open ? false : true} context={"contestants"}/>
                 }
                 {this.state.open ? this.renderSingle() : this.renderContestants(this.state.contestants)}
+                {this.state.open ? null : this.renderJumpList(this.state.contestants)}
             </div>
       );
     } else {

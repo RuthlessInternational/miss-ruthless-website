@@ -22,12 +22,12 @@ export default class Header extends React.Component {
         return (    
             <section className="header">
                 {this.props.navTo ? 
-                    <Link to={"/"} onMouseEnter={(e)=> this.addBack()} onMouseLeave={(e)=> this.removeBack()} className="arrow">
+                    <Link to={process.env.PUBLIC_URL + "/"} onMouseEnter={(e)=> this.addBack()} onMouseLeave={(e)=> this.removeBack()} className="arrow">
                         <img alt="back" src={process.env.PUBLIC_URL + "/images/arrow.png"} />
                         <h1 className="backtext"><span className="mincho">{this.state.backText_chinese}</span>{this.state.backText_english}</h1>
                         </Link>
                 :
-                    <Link to={"/" + this.props.context + "/"} onMouseEnter={(e)=> this.addBack()} onMouseLeave={(e)=> this.removeBack()} className="arrow">
+                    <Link to={process.env.PUBLIC_URL + "/" + this.props.context + "/"} onMouseEnter={(e)=> this.addBack()} onMouseLeave={(e)=> this.removeBack()} className="arrow">
                     <img alt="close" src={process.env.PUBLIC_URL + "/images/close.png"} /><h1 className="backtext"><span className="mincho">{this.state.backText_chinese}</span>{this.state.backText_english}</h1></Link>
                 }
                 <h1><span className="mincho">{this.props.title_chinese}</span>{this.props.title_english}</h1>

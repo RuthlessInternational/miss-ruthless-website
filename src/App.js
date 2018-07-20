@@ -9,7 +9,6 @@ import Scene from './components/Scene'
 import './App.css';
 const apiEndpoint = 'https://miss-r.cdn.prismic.io/api/v2';
 
-
 function Splash(props) {
     return (
         <header className={props.fade ? "splash fade": "splash"}>
@@ -48,7 +47,7 @@ function Upcoming(props) {
 
     const Contestants = data2.map((cont, index) =>
         <li className="contestant" key={index}>
-            <Link to={"/contestants/" + cont.uid} id={cont.uid} className="contestant"><span className="mincho">{PrismicReact.RichText.render(cont.data.name_chinese)}</span>{PrismicReact.RichText.render(cont.data.name_english)}</Link>
+            <Link to={process.env.PUBLIC_URL + "/contestants/" + cont.uid} id={cont.uid} className="contestant"><span className="mincho">{PrismicReact.RichText.render(cont.data.name_chinese)}</span>{PrismicReact.RichText.render(cont.data.name_english)}</Link>
         </li>
     );
 
@@ -115,7 +114,7 @@ function About(props) {
             <div className="section-header">
                 <div className="section-title"><span className="mincho">描写</span> About</div>
                 <div className="section-link">
-                    <Link to="/about"><span className="mincho">提交</span> Read more</Link>
+                    <Link to={process.env.PUBLIC_URL + "/about"}><span className="mincho">提交</span> Read more</Link>
                     <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
@@ -138,18 +137,16 @@ function Competitions(props) {
     for (var key in props) {
         if (key < 3){
             data.push(props[key]);
-            // console.log(props[key])
         }
     }
 
     const Competition = data.map((comp, index) =>
       <li className="link" key={index}>
-        <Link onClick={(e) => this.openComp(comp.uid, index, this)} to={"/competitions/" + comp.uid}>
+        <Link onClick={(e) => this.openComp(comp.uid, index, this)} to={process.env.PUBLIC_URL +  "/competitions/" + comp.uid}>
             <span className="mincho">
                 {PrismicReact.RichText.render(comp.data.title_chinese)}
             </span>
             <span className="denver">{PrismicReact.RichText.render(comp.data.title_english)}</span>
-            {/* <p className="date">{moment(comp.data.date_time).format('ll')}</p> */}
             <p className="date">{moment(comp.data.date_time).format('YYYY-MM-DD')}</p>
         </Link>
       </li>
@@ -160,7 +157,7 @@ function Competitions(props) {
             <div className="section-header">
                 <div className="section-title"><span className="mincho">以前的比赛</span> Previous competitions</div>
                 <div className="section-link">
-                    <Link to="/competitions" params={{ open: false }}><span className="mincho">提交</span> See All</Link>
+                    <Link to={process.env.PUBLIC_URL + "/competitions"} params={{ open: false }}><span className="mincho">提交</span> See All</Link>
                     <div className="arrow-right"><img alt="more" className="arrow-right" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
@@ -182,7 +179,7 @@ function Contestants(props) {
 
     const Contestant = data.map((data, index) =>
       <li className="contestant" key={index}>
-        <Link to={"/contestants/" + data.uid} id={data.uid} className="contestant">
+        <Link to={process.env.PUBLIC_URL + "/contestants/" + data.uid} id={data.uid} className="contestant">
           <span className="mincho">{PrismicReact.RichText.render(data.data.name_chinese)}</span>
           {PrismicReact.RichText.render(data.data.name_english)}</Link>
       </li>
@@ -193,7 +190,7 @@ function Contestants(props) {
             <div className="section-header">
                 <div className="section-title"><span className="mincho">以前的比赛</span> Contestants</div>
                 <div className="section-link">
-                    <a href="/contestants"><span className="mincho">提交</span> See All</a>
+                    <a href={process.env.PUBLIC_URL + "/contestants"}><span className="mincho">提交</span> See All</a>
                     <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
@@ -314,7 +311,7 @@ export default class App extends React.Component {
             <Upcoming competitions={this.state.competitions} contestants={this.state.contestants}/>
             <About {...this.state.about}/>
             <Competitions {...this.state.competitions}/>
-            <Contestants {...this.state.contestants}/>
+            <Contestants {...this.state.contestants} width={this.state.width} height={this.state.height}/>
             <Publications {...this.state.publications}/>
             <Contact />
             <BG mouseX={this.state.x} mouseY={this.state.y} width={this.state.width} height={this.state.height}/>
