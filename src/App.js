@@ -208,11 +208,14 @@ function Publications(props) {
 
     const Publication = data.map((data, index) =>
       <li className="publication" key={index}>
-        <a href={data.data.link_to_download.url}>
+        {/* <a href={data.data.link_to_download.url}> */}
+        <Link to={process.env.PUBLIC_URL + "/publications/" + data.uid} id={data.uid}>
+
             <img alt="publication" src={data.data.image.url} />
             <span className="mincho">{PrismicReact.RichText.render(data.data.title_chinese)} </span>
             {PrismicReact.RichText.render(data.data.title_english)}
-        </a>
+        </Link>
+        {/* </a> */}
       </li>
     );
 
@@ -292,23 +295,42 @@ export default class App extends React.Component {
   fetchPage(props) {
     let that = this
     Prismic.api(apiEndpoint).then(api => {
-      api.query(Prismic.Predicates.any('document.type', ["competition", "about", "publication", "contestant"]), { pageSize : 100, page : 1}).then(function(response) {
+      api.query(Prismic.Predicates.any('document.type', ["about", "contestant"]), { pageSize : 100, page : 1}).then(function(response) {
           let about = response.results.filter(data => data.type === "about")
-          let competitions = response.results.filter(data => data.type === "competition")
           let contestants = response.results.filter(data => data.type === "contestant")
-          let publications = response.results.filter(data => data.type === "publication")
           that.setState({ 
-              about: about,
-              competitions: competitions,
               contestants: contestants,
-              publications: publications,
           });
       });
     })
+
+    Prismic.api(apiEndpoint).then(api => {
+        api.query(
+            Prismic.Predicates.at('document.type', 'about'), { pageSize : 6, page : 1}
+        ).then(response => {
+            that.setState({about: response.results})
+        });
+    });
+
+    Prismic.api(apiEndpoint).then(api => {
+        api.query(
+            Prismic.Predicates.at('document.type', 'competition'), { pageSize : 6, page : 1, orderings : '[my.competition.date_time desc]'}
+        ).then(response => {
+            that.setState({competitions: response.results})
+        });
+    });
+
+    Prismic.api(apiEndpoint).then(api => {
+        api.query(
+            Prismic.Predicates.at('document.type', 'publication'), { pageSize : 6, page : 1,orderings : '[my.publication.published_on desc]' }
+        ).then(response => {
+            that.setState({publications: response.results})
+        });
+    });
   }
 
   render() {
-    if (this.state.competitions) {
+    if (this.state.competitions && this.state.about ) {
       return (
         <div className="frame main" ref={(frame) => { this.frame = frame }}>
             <Splash fade={this.state.fade}/>

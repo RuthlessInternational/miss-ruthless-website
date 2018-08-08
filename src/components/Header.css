@@ -66,7 +66,7 @@
 
 @media only screen and (max-width: 1024px) {
     .header{
-        justify-content: center;
+        /* justify-content: center; */
     }
     .header .mincho h1{
         /* padding-right: 0px; */
@@ -91,13 +91,13 @@
     .backtext{
         display: none !important;
     }
-
+/* 
     .arrow {
         display: flex;
         align-items: center;
         padding-left: 20px;
         position: fixed;
         left: 20px;
-    }
+    } */
 
 }

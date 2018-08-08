@@ -312,6 +312,11 @@ label{
   width: 100%;
 }
 
+.label p{
+  margin-bottom: 0px;
+  padding-top: 0px;
+}
+
 .enter{
   display: flex;
   flex-direction: row;

@@ -56,17 +56,9 @@ export default class Publications extends React.Component {
   fetchPage(props) {   
     Prismic.api(apiEndpoint).then(api => {
         api.query(
-            Prismic.Predicates.at('document.type', 'publication'), { pageSize : 100, page : 1}
+            Prismic.Predicates.at('document.type', 'publication'), { pageSize : 100, page : 1,orderings : '[my.publication.published_on desc]' }
         ).then(response => {
             this.setState({publications: response.results})
-        });
-    });
-
-    Prismic.api(apiEndpoint).then(api => {
-        api.query(
-            Prismic.Predicates.at('document.type', 'contestant'), { pageSize : 100, page : 1}
-        ).then(response => {
-            this.setState({contestants: response.results})
         });
     });
   }
@@ -80,133 +72,61 @@ export default class Publications extends React.Component {
       this.renderCommpetition(this.state.publications, this.state.open, this.state.uid)
   }
 
-//   openSlides(){
-//       this.setState({openCarousel: true})
-//   }
-
-//   closeSlides(){
-//     this.setState({openCarousel: false})
-//     }
-
-//     handleHover(imageUrl) {
-//         this.setState({featured: imageUrl})
-//     }
-
-//    changeSlides(dir) {
-//     if(dir==="next"){
-//         slider.next()
-//     } else{
-//         slider.prev()
-//     }
-//     this.setState({currentSlideNum: slider.currentSlide})
-//      console.log(slider.currentSlide)
-//     }
-
-//   renderContestant(contestants){
-//     var data = [];
-
-//     if(this.state.contestants){
-//         for (var key in contestants) {
-//            let publications = contestants[key].data.publications_list
-//            for (var count in publications) {
-//                if(publications[count].publications.slug === this.state.uid){
-//                 data.push(contestants[key])
-//                }
-//            }
-//         }
-
-//         const Contestants = data.map((cont, index) =>
-//             <li key={index}>   
-//                 <Link 
-//                     onClick={(e) => this.openComp(cont.uid)} 
-//                     to={process.env.PUBLIC_URL + "/contestants/" + cont.uid}
-//                     className="contestant-name">
-//                     {PrismicReact.RichText.render(cont.data.name_english)}
-//                     <span className="mincho">{PrismicReact.RichText.render(cont.data.name_chinese)}</span>
-//                 </Link>
-//             </li>
-//         );
-
-
-//         return (
-//             <div className={this.state.open ? "contestants" : "contestants closed"}>
-//                 <h3 className={this.state.open || this.state.hover ? "label top" : "label top closed"}><span className="mincho">以前的比赛</span> Contestants</h3>
-//                 {Contestants}
-//                 {/* <li><Link to={process.env.PUBLIC_URL + "/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>See all ><span className="mincho">提交</span> </Link></li> */}
-//             </div>
-//         )
-//     } else {
-//         return <p>Loading</p>
-//     }
-//   }
+  handleHover(imageUrl) {
+    this.setState({featured: imageUrl})
+  }
 
   renderCommpetition(publications, open, uid){
     let data = [];
 
-    if(uid){
-        let slides = [];
 
+    if(uid){
         for (var key in publications) {
             if(publications[key].uid === uid) {
                 data.push(publications[key]);
-                slides = publications[key].data.slideshow
             }
         }
-    
-        // const Slides = slides.map((slide, index) =>
-        //     <img  className="green" key={index} src={slide.slide.url} alt="slide" />
-        // );
 
         if (data.length > 0) {
             return (
                 <section className={this.state.openCarousel ? "details open" : "details"}>
-                    {/* {this.renderContestant(this.state.contestants)} */}
-                    {/* <div className={this.state.openCarousel ? "carouselContainer open" : "carouselContainer"}>
-                        <div className={this.state.openCarousel ? "close open" : "close"} onClick={(e) => this.closeSlides()}>
-                            <img alt="close" src={process.env.PUBLIC_URL + "/images/close.png"} />
-                        </div>
-                        <div className={this.state.openCarousel ? "arrowLeft open" : "arrowLeft"} >
-                            <img alt="prev" style={this.state.currentSlideNum <= 0 ? {opacity: .3} : {opacity: 1}} src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => this.changeSlides("prev")}/>
-                        </div>
-                        <div className={this.state.open ? "carousel" : "carousel open"} onClick={(e) => this.openSlides()}>
-                            <ReactSiema className="carousel" {...options} ref={siema => slider = siema}>
-                                {Slides}
-                            </ReactSiema>
-                        </div>
-                        <div className={this.state.openCarousel ? "arrowRight open" : "arrowRight"}>
-                            <img alt="next" style={this.state.currentSlideNum >= slides.length-1 ? {opacity: .3} : {opacity: 1}} src={process.env.PUBLIC_URL + "/images/arrow.png"} onClick={() => this.changeSlides("next")}/>
-                        </div>
-                    </div> */}
+                    <img className="featured" alt="featured" src={data[0].data.image.url} />
                 </section>
             )
         }
     } else {
-        for (key in publications) {
+        for (var key in publications) {
             data.push(publications[key]);
         }
         return (
             <section className="details">
-                <img className="featured" alt="featured" src={!this.state.featured ?  data[0].data.featured_image.url : this.state.featured} />
+                <img className="featured" alt="featured" src={!this.state.featured ?  data[0].data.image.url : this.state.featured} />
             </section>
         )
     }
   }
 
-  renderClippings(clippings) {
-    // console.log(clippings)
-    const Clips = clippings.map((clip, index) =>
-        <a href={clip.clipping.url} className="clip" key={index}><p>{clip.clipping.name}</p></a>
-    );
-
-    if (clippings.length > 0) {
+  renderDownload(link) {
+      if(link.url){
         return (
-            <div className="clips">
-                <p className="label top">Press and Media:</p>
-                {Clips}
+            <div className="label top">
+                <p>Download:</p>
+                <a href={link.url} className="clip" key={link.name}><p>{link.name}</p></a>
             </div>
         )
     }
   }
+
+  renderPurchase(link) {
+    if(link.url){
+      return (
+          <div className="label top">
+              <p>Purchase:</p>
+              <a href={link.url} className="clip" key={link.name}><p>{link.name}</p></a>
+          </div>
+      )
+  }
+}
 
   renderList(publications, uid){
     var data = [];
@@ -219,7 +139,7 @@ export default class Publications extends React.Component {
         <Link 
             onClick={(e) => this.openComp(comp.uid, index, this)}
             to={process.env.PUBLIC_URL + "/publications/" + comp.uid} 
-            // onMouseEnter={(e) => {this.handleHover(comp.data.image.url)}}
+            onMouseEnter={(e) => {this.handleHover(comp.data.image.url)}}
             >
             <span className="mincho">
                 <h1>{PrismicReact.RichText.render(comp.data.title_chinese)}</h1>
@@ -227,14 +147,14 @@ export default class Publications extends React.Component {
             <span className="denver">
                 {PrismicReact.RichText.render(comp.data.title_english)}
             </span>
-            <p className="date">{moment(comp.data.date_time).format('YYYY/MM/DD')}</p>
+            <p className="date">{moment(comp.data.published_on).format('YYYY/MM/DD')}</p>
         </Link>
-        {/* <div className={comp.uid === this.state.uid && this.state.open ? "info" : "info closed"} >
+        <div className={comp.uid === this.state.uid && this.state.open ? "info" : "info closed"} >
             {PrismicReact.RichText.render(comp.data.description_english)}
             <span className="mincho">{PrismicReact.RichText.render(comp.data.description_chinese)}</span>
-            {typeof comp.data.video.html === "undefined" ? <div></div> : <div className="video-container" dangerouslySetInnerHTML={{__html: comp.data.video.html}}></div>}
-            {this.renderClippings(comp.data.clipping_list)}
-        </div> */}
+            {this.renderDownload(comp.data.link_to_download)}
+            {this.renderPurchase(comp.data.link_to_purchase)}
+        </div>
       </li>
     );
 
@@ -248,11 +168,11 @@ export default class Publications extends React.Component {
   render() {
     if (this.state.publications) {
         return (
-            <div className="frame competitions">
+            <div className="frame competitions publications">
                 {this.state.open ? 
-                    <Header title_english={"Publication"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"Publication"}/>
+                    <Header title_english={"Publications"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"publications"}/>
                     : 
-                    <Header title_english={"Publications"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"Publications"}/>
+                    <Header title_english={"Publications"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"publications"}/>
                 }
                 
                 <div className="content">
@@ -264,7 +184,7 @@ export default class Publications extends React.Component {
                     </div>
                     <div className="view">
                         {/* <h3 className={this.state.open || this.state.hover ? "label" : "label closed"}></h3> */}
-                        {/* {this.renderCommpetition(this.state.publications, this.state.open, this.state.uid)} */}
+                        {this.renderCommpetition(this.state.publications, this.state.open, this.state.uid)}
                     </div>
                     
                 </div>
