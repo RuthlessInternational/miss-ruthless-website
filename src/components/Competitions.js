@@ -58,7 +58,7 @@ export default class Competitions extends React.Component {
   fetchPage(props) {   
     Prismic.api(apiEndpoint).then(api => {
         api.query(
-            Prismic.Predicates.at('document.type', 'competition'), { pageSize : 100, page : 1}
+            Prismic.Predicates.at('document.type', 'competition'), { pageSize : 100, page : 1, orderings : '[my.competition.date_time desc]'}
         ).then(response => {
             this.setState({competitions: response.results})
         });
@@ -132,7 +132,7 @@ export default class Competitions extends React.Component {
 
         return (
             <div className={this.state.open ? "contestants" : "contestants closed"}>
-                <h3 className={this.state.open || this.state.hover ? "label top" : "label top closed"}><span className="mincho">以前的比赛</span> Contestants</h3>
+                <h3 className={this.state.open || this.state.hover ? "label top" : "label top closed"}><span className="mincho">參賽佳麗 </span> Contestants</h3>
                 {Contestants}
                 {/* <li><Link to={process.env.PUBLIC_URL + "/contestants/"} className={this.state.open || this.state.hover ? "" : "closed"}>See all ><span className="mincho">提交</span> </Link></li> */}
             </div>
@@ -202,8 +202,8 @@ export default class Competitions extends React.Component {
 
     if (clippings.length > 0) {
         return (
-            <div className="clips">
-                <p className="label top">Press and Media:</p>
+            <div className="label top">
+                <p className="">Press and Media:</p>
                 {Clips}
             </div>
         )
@@ -251,7 +251,7 @@ export default class Competitions extends React.Component {
         return (
             <div className="frame competitions">
                 {this.state.open ? 
-                    <Header title_english={"Competition"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"competitions"}/>
+                    <Header title_english={"Competitions"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"competitions"}/>
                     : 
                     <Header title_english={"Competitions"} title_chinese={"競賽"} navTo={this.state.open ? false : true} context={"competitions"}/>
                 }

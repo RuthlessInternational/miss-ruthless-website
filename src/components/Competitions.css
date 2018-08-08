@@ -24,7 +24,7 @@
     height: 100%;
     width: 100%;
     /* overflow: hidden; */
-    overflow:scroll;
+    /* overflow:scroll; */
 }
 
 .content .list{
@@ -78,7 +78,7 @@
 .list li{
     list-style: none;
     text-align: center;
-    padding: 2rem 4rem;
+    padding: 2rem 2rem;
 }
 
 .list li a{
@@ -361,14 +361,15 @@ to {
     width: 100%;
 }
 
-.clips p{
+.label p{
     margin: 0px;
     padding: 0px;
 }
 
-.clip p{
-    padding-top: 10px;
+.label{
+    padding: 1rem;
 }
+
 
 @media only screen and (max-width: 1024px) {
     .list li {
@@ -381,6 +382,8 @@ to {
         padding-top: 0px;
         padding-bottom: 5rem;
         animation: none;
+        width: 90%;
+        margin: 0px auto;
     }
 
     .competitions .contestants li a{
@@ -402,6 +405,15 @@ to {
     .details{
         display: block;
     }
+    .publications .details{
+        display: flex;
+    }
+
+    .publications .content .list{
+        width: 90%;
+        margin: 0px auto;
+    }
+
 
     .details .carouselContainer{
         position: relative;

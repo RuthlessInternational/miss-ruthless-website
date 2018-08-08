@@ -8,7 +8,7 @@ import './About.css';
 const apiEndpoint = 'https://miss-r.cdn.prismic.io/api/v2';
 
 
-export default class Contestants extends React.Component {
+export default class About extends React.Component {
 
   state = {
       about: null
@@ -63,12 +63,10 @@ export default class Contestants extends React.Component {
                 <div className="view">
                     <img className="featured" alt="featured" src={this.state.about[0].data.about_image.url} />
                     <div className="credits">
-                        <h3><span className="mincho">平面設計</span> Art Direction & Design</h3>
-                        <p><span className="mincho">曾頌恩</span>  Matthew Tsang</p>
-                        <p><span className="mincho">曹正楠</span> Phil Cao</p>
-                        <h3><span className="mincho">網站設計</span> Programming</h3>
-                        <p><span className="mincho">胡師堯</span> Eric Hu</p>
-                        <p>Callil Capuozzo</p>
+                        <h3>Art Direction</h3>
+                        <p>Eric Hu and Matthew Tsang</p>
+                        <h3>Design and Programming</h3>
+                        <p>Callil Capuozzo and Phil Cao</p>
                     </div>
                 </div>
             </div>
