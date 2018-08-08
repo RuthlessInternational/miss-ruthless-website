@@ -4,6 +4,7 @@ body {
   padding: 0;
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
   line-height: 3.75rem;
   font-family: 'Wremena','Times','Times New Roman',serif;
   font-weight: 400;
@@ -81,4 +82,8 @@ h1 .mincho{
 
 li{
   list-style: none;
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(0,0,0,0);
 }

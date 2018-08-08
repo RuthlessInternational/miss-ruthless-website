@@ -8,7 +8,7 @@ import './About.css';
 const apiEndpoint = 'https://miss-r.cdn.prismic.io/api/v2';
 
 
-export default class Contestants extends React.Component {
+export default class About extends React.Component {
 
   state = {
       about: null

@@ -65,7 +65,8 @@ class Scene extends Component {
       this.mesh = mesh
     });
 
-    renderer.setPixelRatio( window.devicePixelRatio );
+    // renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setPixelRatio( 1 );
     renderer.setSize(this.props.width, this.props.height)
 
     this.scene = scene

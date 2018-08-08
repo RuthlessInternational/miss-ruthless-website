@@ -14,7 +14,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-siema": "./src/js/react-siema",
-    "three": "^0.94.0",
+    "three": "^0.94.0"
   },
   "scripts": {
     "predeploy": "npm run build",
