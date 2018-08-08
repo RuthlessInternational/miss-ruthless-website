@@ -10,6 +10,7 @@ body{
   visibility: visible;
   cursor: pointer;
   transition: 0.1s ease all;
+  backface-visibility: hidden;
 }
 
 .splash-image{
@@ -22,7 +23,8 @@ body{
   transition: 0.3s ease all;
   opacity: .95;
   visibility: visible;
-	cursor: pointer;
+  cursor: pointer;
+  backface-visibility: hidden;
 	transition: 0.3s ease all;
 }
 
@@ -50,6 +52,8 @@ body{
   width: 100vw;
   height: 100vh;
   z-index: -1;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 
@@ -306,6 +310,11 @@ label{
   font-size: 20px;
   text-align: center;
   width: 100%;
+}
+
+.label p{
+  margin-bottom: 0px;
+  padding-top: 0px;
 }
 
 .enter{

@@ -102,7 +102,7 @@ function Contact(props) {
                 <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/ruthlessfans/?hc_ref=SEARCH&fref=nf">Facebook</a>
 
                 <a target="_blank" rel="noopener noreferrer" href="mailto:miss@ruthless.international">Email</a>
-                <a target="_blank" rel="noopener noreferrer" href="https://vimeo.com/missruthless">Vimeo</a>
+                {/* <a target="_blank" rel="noopener noreferrer" href="https://vimeo.com/missruthless">Vimeo</a> */}
             </div>
         </footer>
     )
@@ -191,7 +191,7 @@ function Contestants(props) {
             <div className="section-header">
                 <div className="section-title"><span className="mincho">佳麗</span> Contestants</div>
                 <div className="section-link">
-                    <a href={process.env.PUBLIC_URL + "/contestants"}><span className="mincho">提交</span> See All</a>
+                    <Link to={process.env.PUBLIC_URL + "/contestants"} params={{ open: false }}><span className="mincho">顯示全部</span> See All</Link>
                     <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
                 </div>
             </div>
@@ -208,22 +208,25 @@ function Publications(props) {
 
     const Publication = data.map((data, index) =>
       <li className="publication" key={index}>
-        <a href={data.data.link_to_download.url}>
+        {/* <a href={data.data.link_to_download.url}> */}
+        <Link to={process.env.PUBLIC_URL + "/publications/" + data.uid} id={data.uid}>
+
             <img alt="publication" src={data.data.image.url} />
             <span className="mincho">{PrismicReact.RichText.render(data.data.title_chinese)} </span>
             {PrismicReact.RichText.render(data.data.title_english)}
-        </a>
+        </Link>
+        {/* </a> */}
       </li>
     );
 
     return (    
         <section className="publications">
             <div className="section-header">
-                <div className="section-title"><span className="mincho">刊物</span> Publications</div>
-                {/* <div className="section-link">
-                    <a href="/publi">提交 See All</a>
-                    <div className="arrow-right"><img className="arrow-right" src="/images/arrowRight.png" /></div>
-                </div> */}
+                <div className="section-title"><span className="mincho">商店</span> Publications</div>
+                <div className="section-link">
+                    <Link to={process.env.PUBLIC_URL + "/publications"} params={{ open: false }}><span className="mincho">顯示全部</span> See All</Link>
+                    <div className="arrow-right"><img className="arrow-right" alt="more" src={process.env.PUBLIC_URL + "/images/arrowRight.png"} /></div>
+                </div>
             </div>
             <div className="publication-list">{Publication}</div>
         </section>
@@ -253,6 +256,7 @@ export default class App extends React.Component {
 
   fireOnScroll() {
     window.scrollY > window.innerHeight*.75 ? this.setState({fade: true}) : this.setState({fade: false})
+    this.forceUpdate()
   }
 
   componentDidMount() {
@@ -269,12 +273,12 @@ export default class App extends React.Component {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  componentWillReceiveProps(props) {
-    // this.fetchPage(props);
-  }
-
   updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
   }
 
   onMouseMove(e) {
@@ -282,30 +286,51 @@ export default class App extends React.Component {
     let height = this.state.height
 
     let mouseX = ( e.clientX - (width/2) ) * 4;
-	let mouseY = ( e.clientY - (height/2) ) * 4;
-    this.setState({ x: mouseX, y: mouseY });
+    let mouseY = ( e.clientY - (height/2) ) * 4;
+    if(this.state.x !== mouseX || this.state.y !== mouseY){
+        this.setState({ x: mouseX, y: mouseY });
+    }
   }
 
   fetchPage(props) {
     let that = this
     Prismic.api(apiEndpoint).then(api => {
-      api.query(Prismic.Predicates.any('document.type', ["competition", "about", "publication", "contestant"]), { pageSize : 100, page : 1}).then(function(response) {
+      api.query(Prismic.Predicates.any('document.type', ["about", "contestant"]), { pageSize : 100, page : 1}).then(function(response) {
           let about = response.results.filter(data => data.type === "about")
-          let competitions = response.results.filter(data => data.type === "competition")
           let contestants = response.results.filter(data => data.type === "contestant")
-          let publications = response.results.filter(data => data.type === "publication")
           that.setState({ 
-              about: about,
-              competitions: competitions,
               contestants: contestants,
-              publications: publications,
           });
       });
     })
+
+    Prismic.api(apiEndpoint).then(api => {
+        api.query(
+            Prismic.Predicates.at('document.type', 'about'), { pageSize : 6, page : 1}
+        ).then(response => {
+            that.setState({about: response.results})
+        });
+    });
+
+    Prismic.api(apiEndpoint).then(api => {
+        api.query(
+            Prismic.Predicates.at('document.type', 'competition'), { pageSize : 6, page : 1, orderings : '[my.competition.date_time desc]'}
+        ).then(response => {
+            that.setState({competitions: response.results})
+        });
+    });
+
+    Prismic.api(apiEndpoint).then(api => {
+        api.query(
+            Prismic.Predicates.at('document.type', 'publication'), { pageSize : 6, page : 1,orderings : '[my.publication.published_on desc]' }
+        ).then(response => {
+            that.setState({publications: response.results})
+        });
+    });
   }
 
   render() {
-    if (this.state.competitions) {
+    if (this.state.competitions && this.state.about ) {
       return (
         <div className="frame main" ref={(frame) => { this.frame = frame }}>
             <Splash fade={this.state.fade}/>
@@ -321,7 +346,6 @@ export default class App extends React.Component {
     }
     return (
         <div className="frame loading">
-            {/* <h1>Loading</h1> */}
             <img className="flower animated" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
         </div>
     )

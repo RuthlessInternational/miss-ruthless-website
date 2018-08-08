@@ -29,14 +29,14 @@
 .credits p{
     margin: 0px;
     padding: 0px;
-    font-size: 16px;
+    /* font-size: 16px; */
 }
 
 .credits h3{
     margin: 0px;
     font-weight: 700;
     padding: 0px;
-    font-size: 16px;
+    /* font-size: 16px; */
 }
 
 
@@ -49,7 +49,8 @@
     }
 
     .content .list{
-        width: 100%;
+        width: 90%;
+        margin: 0px auto;
         height: auto;
         overflow: initial;
     }
@@ -62,7 +63,10 @@
     }
 
     .content .view img{
-        width: 100%;
+        height: 100%;
+        width: 90%;
+        margin: 0px auto;
+        align-self: center;
         margin-bottom: 5rem;
     }
 

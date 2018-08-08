@@ -199,4 +199,15 @@
     .jumplist{
         display: none;
     }
+
+    .contestants-wrapper{
+        height: initial;
+        padding: 0px;
+    }
+
+    .contestants-wrapper .content{
+        padding-top: 10rem;
+        margin-top: 0px;
+        margin: 0 2rem;
+    }
 }

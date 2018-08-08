@@ -12,6 +12,7 @@ import './index.css';
 import App from './App';
 import Competitions from './components/Competitions';
 import Contestants from './components/Contestants';
+import Publications from './components/Publications';
 import About from './components/About';
 
 import registerServiceWorker from './registerServiceWorker';
@@ -25,6 +26,8 @@ const Routes = (props) => (
         <Route exact path={"/competitions/:uid"} render={routeProps => <Competitions {...routeProps} />} />
         <Route exact path={"/contestants"} render={routeProps => <Contestants {...routeProps} />} />
         <Route exact path={"/contestants/:uid"} render={routeProps => <Contestants {...routeProps}/>} />
+        <Route exact path={"/publications"} render={routeProps => <Publications {...routeProps} />} />
+        <Route exact path={"/publications/:uid"} render={routeProps => <Publications {...routeProps}/>} />
         <Route component={App}/>
       </Switch>
     </Router>
