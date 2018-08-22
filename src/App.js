@@ -60,7 +60,7 @@ function Upcoming(props) {
                     <div>
                         <span className="mincho">{PrismicReact.RichText.render(data[0].data.title_chinese)}</span>
                         <span className="denver">{PrismicReact.RichText.render(data[0].data.title_english)}</span>
-                        <p className="date">{moment(data[0].data.date_time).format('YYYY/MM/DD')}</p>
+                        <p className="date">{moment(data[0].data.date_time).format('YYYY/MM/DD')}{data[0].data.date_time_end ? " - " +  moment(data[0].data.date_time_end).format('YYYY/MM/DD') : null}</p>
                     </div>
                     <img className="wreath" alt="wreath" src={process.env.PUBLIC_URL + "/images/wreath-right.png"} />
                 </div>
@@ -76,7 +76,7 @@ function Upcoming(props) {
 
             <div className="upcoming-details">
                 <span className="left">{PrismicReact.RichText.render(data[0].data.location)}</span>
-                <p className="date">{moment(data[0].data.date_time).format('YYYY/MM/DD, h:mm a')}</p>
+                <p className="date">{moment(data[0].data.date_time).format('YYYY/MM/DD, h:mm a')}{data[0].data.date_time_end ? " - " +  moment(data[0].data.date_time_end).format('YYYY/MM/DD, h:mm a') : null}</p>
             </div>
             <a href={data[0].data.button_link.url} className="apply"><span className="mincho">{PrismicReact.RichText.render(data[0].data.button_text_chinese)}</span>{PrismicReact.RichText.render(data[0].data.button_text_english)}</a>
             <img className="flower" alt="flower" src={process.env.PUBLIC_URL + "/images/flower.png"} />
@@ -148,7 +148,7 @@ function Competitions(props) {
                 {PrismicReact.RichText.render(comp.data.title_chinese)}
             </span>
             <span className="denver">{PrismicReact.RichText.render(comp.data.title_english)}</span>
-            <p className="date">{moment(comp.data.date_time).format('YYYY/MM/DD')}</p>
+            <p className="date">{moment(comp.data.date_time).format('YYYY/MM/DD')}{comp.data.date_time_end ? " - " +  moment(comp.data.date_time_end).format('YYYY/MM/DD') : null}</p>
         </Link>
       </li>
     );

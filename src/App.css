@@ -2,6 +2,17 @@ body{
   background-color: black;
 }
 
+::-webkit-scrollbar {
+  /* width: 0px; */
+  background:none; 
+  /* make scrollbar transparent */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f1f1f;
+  border-radius: 10px;
+}
+
 .splash{
   position: fixed;
   top: 0px;

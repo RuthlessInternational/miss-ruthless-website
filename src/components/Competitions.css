@@ -86,6 +86,10 @@
     text-decoration: none;
 }
 
+.info a{
+    text-decoration: underline !important;
+}
+
 .list li a:hover{
     text-decoration: underline;
     cursor: pointer;
@@ -153,6 +157,21 @@
     background-color: rgba(0,0,0,.75);
 }
 
+.clip{
+    /* display: flex; */
+    /* align-content: center; */
+    /* justify-content: center; */
+}
+
+.clip p{
+    margin: 0px;
+    /* float: left; */
+}
+
+.clip pre{
+    margin: 0px;
+}
+
 .close{
     position: fixed;
     top: 24px;
@@ -194,8 +213,14 @@
     opacity: 1;
 }
 
-.details .carousel img{
-    /* max-width:50%; */
+.details .carousel .slide p{
+    text-align: left;
+    font-style: italic;
+    margin-top: 0px;
+}
+
+.details .carousel .slide img{
+    width: 100%;
 }
 
 
@@ -236,6 +261,16 @@
     animation-fill-mode: forwards !important;
     animation: scroll 20s cubic-bezier(0.39, 0.575, 0.565, 1)  1 normal forwards;
     /* transform: translate(0px, 50vh); */
+}
+
+.competitions .contestants::-webkit-scrollbar {
+    /* width: 0px; */
+    background:none; 
+    /* make scrollbar transparent */
+  }
+  
+.competitions .contestants::-webkit-scrollbar-thumb {
+    background: none;
 }
 
   

@@ -45,7 +45,7 @@ export default class Contestants extends React.Component {
     let el = this[`letter${letter}`].getBoundingClientRect();
     let parent = this.refs.container
     console.log(parent.scrollLeft + el.x)
-    parent.scrollLeft = (parent.scrollLeft + el.x) - 100
+    parent.scrollLeft = (parent.scrollLeft + el.x) - 270
   };
 
   fetchPage(props) {   

@@ -75,7 +75,7 @@ export default class Competitions extends React.Component {
 
   openComp(uid, index, el) {
       if(this.state.open && this.state.uid === uid){
-        this.setState({uid: uid, open: false})
+        this.setState({uid: uid, open: false, currentSlideNum: 0})
       } else {
         this.setState({uid: uid, open: true})
       }
@@ -87,7 +87,7 @@ export default class Competitions extends React.Component {
   }
 
   closeSlides(){
-    this.setState({openCarousel: false})
+    this.setState({openCarousel: false, currentSlideNum: 0})
     }
 
     handleHover(imageUrl) {
@@ -152,11 +152,17 @@ export default class Competitions extends React.Component {
             if(competitions[key].uid === uid) {
                 data.push(competitions[key]);
                 slides = competitions[key].data.slideshow
+                console.log(slides)
             }
         }
     
         const Slides = slides.map((slide, index) =>
+        <div className="slide">
             <img  className="green" key={index} src={slide.slide.url} alt="slide" />
+            {PrismicReact.RichText.render(slide.image_caption)}
+            {PrismicReact.RichText.render(slide.image_caption_chinese)}
+
+        </div>
         );
 
         if (data.length > 0) {
@@ -195,9 +201,13 @@ export default class Competitions extends React.Component {
   }
 
   renderClippings(clippings) {
-    // console.log(clippings)
+    console.log(clippings)
     const Clips = clippings.map((clip, index) =>
-        <a href={clip.clipping.url} className="clip" key={index}><p>{clip.clipping.name}</p></a>
+        <a href={clip.clipping.url} className="clip" key={index}>
+            {PrismicReact.RichText.render(clip.clipping_title)}
+            {PrismicReact.RichText.render(clip.clipping_title_chinese)}
+            {clip.clipping_title.length === 0 ? clip.clipping.name : null}
+        </a>
     );
 
     if (clippings.length > 0) {
@@ -228,7 +238,7 @@ export default class Competitions extends React.Component {
             <span className="denver">
                 {PrismicReact.RichText.render(comp.data.title_english)}
             </span>
-            <p className="date">{moment(comp.data.date_time).format('YYYY/MM/DD')}</p>
+            <p className="date">{moment(comp.data.date_time).format('YYYY/MM/DD')} {comp.data.date_time_end ? " - " +  moment(comp.data.date_time_end).format('YYYY/MM/DD') : null}</p>
         </Link>
         <div className={comp.uid === this.state.uid && this.state.open ? "info" : "info closed"} >
             {PrismicReact.RichText.render(comp.data.description_english)}
