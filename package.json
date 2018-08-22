@@ -2,7 +2,7 @@
   "name": "miss-ruthless",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://ruthless.international",
+  "homepage": "https://ruthless.international",
   "dependencies": {
     "gh-pages": "^1.2.0",
     "moment": "^2.22.2",
